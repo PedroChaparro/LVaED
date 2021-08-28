@@ -1,0 +1,31 @@
+{% extends './layout.html' %}
+
+{% block title %}LVaED::CODE TO DIAGRAM{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h2>TRANSFORMACIÓN DE CÓDIGO A DIAGRAMA</h2>
+    <div class="card">
+        <div class="card-body shadow">
+            <p class="card-text">Para realizar la transformación de código a diagrama, selecciona tu archivo de Python a continuación:</p>
+        
+
+            <!--  ACÁ DEBE IR LO RELACIONADO CON RECIBIR EL ARCHIVO DE PYTHON  -->
+            <input type="file" name="archivoPython" accept=".py"><br><br>
+            <input type="submit" value="TRANSFORMAR A DIAGRAMA">
+
+
+        </div>
+    </div>
+</div>
+
+<!--  DIV DONDE APARECERÁ EL DIAGRAMA  -->
+<div class="container" id="diagramContainer">
+    <h2>SU DIAGRAMA APARECERÁ ACÁ:</h2>
+    <br>
+    <!--  NETWORK SPACE  -->
+    <div class="border rounded-0 shadow" id="network"></div>
+</div>
+
+{% endblock %}

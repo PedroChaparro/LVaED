@@ -1,0 +1,145 @@
+.navbar-light .navbar-nav .nav-link {
+  background-color: #AB87FF;
+  margin-left: 12px;
+  border-radius: 6px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  background-color: #8b59ff;
+}
+
+#presentation-container {
+  padding: 60px;
+  background: url(../img/module_presentation.jpg);
+  background-size: cover;
+  padding-bottom: 40px;
+}
+
+.jumbotron {
+  text-align: center;
+  border-radius: 20px;
+}
+
+.btn:not(:disabled):not(.disabled) {
+  background-color: #AB87FF;
+  border-color: #AB87FF;
+}
+
+.btn:not(:disabled):not(.disabled):hover {
+  background-color: #8b59ff;
+}
+
+#cards-container {
+  margin-top: 30px;
+}
+
+#cardImage {
+  border-radius: 14px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  text-align: center;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+#teoria-container {
+  background: url(../img/module-teoriabg.jpg);
+  padding: 60px;
+  padding-bottom: 40px;
+  background-size: cover;
+}
+
+.card-group > .card:not(:last-child) {
+}
+
+#id-card {
+  margin: 20px;
+}
+
+#dataStructure-img {
+  filter: blur(2px);
+}
+
+#dataStructure-img:hover {
+  filter: blur(0px);
+}
+
+#implementaciones-container {
+  background: url(../img/module-implementaciones.jpg);
+  padding: 60px;
+  padding-bottom: 40px;
+  background-size: cover;
+}
+
+.btn:not(:disabled):not(.disabled) {
+  margin-left: 12X;
+}
+
+.btn:not(:disabled):not(.disabled) {
+  margin-right: 16px;
+}
+
+#btn_java {
+  background-color: #FEBB80;
+  border-color: #FEBB80;
+}
+
+#btn_java:hover {
+  background-color: #FE9B43;
+  border-color: #FE9B43;
+}
+
+#btn_python {
+  background-color: #89FFA1;
+  border-color: #89FFA1;
+}
+
+#btn_python:hover {
+  background-color: #39FF61;
+  border-color: #39FF61;
+}
+
+#btn_cpp {
+  background-color: #8DA7FF;
+  border-color: #8DA7FF;
+}
+
+#btn_cpp:hover {
+  background-color: #2051FA;
+  border-color: #2051FA;
+}
+
+.jumbotron {
+}
+
+#transformaciones-container {
+  background: url(../img/module-transformacionesbg.png);
+  padding: 60px;
+  padding-bottom: 40px;
+  background-size: cover;
+}
+
+.card-group {
+  margin-top: 30px;
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+  padding: 30px;
+}
+
+#code-div {
+  background-color: #EEEEEE;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#structure-name {
+  margin-bottom: 20px;
+}
+
+#network {
+  height: 420px;
+  margin-top: 15px;
+}
+

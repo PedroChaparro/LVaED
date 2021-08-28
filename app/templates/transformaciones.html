@@ -1,0 +1,44 @@
+{% extends './layout.html' %}
+
+{% block title %}LVaED::TRANSFORMACIONES{% endblock %}
+
+{% block body %}
+
+<!-- CONTENEDOR PRESENTACIÓN DEL MÓDULO -->
+<div class="shadow" id="transformaciones-container">
+    <div class="jumbotron" style="background-color: rgba(233,236,239,0.9);">
+        <h1>BIENVENID@ AL MÓDULO DE TRANSFORMACIONES</h1>
+        <p style="font-size: 18px;">En este módulo podrás realizar transformaciones de código a diagrama (a partir de un archivo de Python con la clase principal y sus métodos) o de diagrama a código (A partir de un diagrama que se realiza en la página Draw.io se genera el código
+            que representa el mismo).</p>
+        <p style="font-size: 18px;">A CONTINUACIÓN, SELECCIONA LA TRANSFORMACIÓN QUE DESEAS REALIZAR:</p>
+    </div>
+</div>
+
+
+<!-- OPCIONES DE SELECCIÓN PARA EL USUARIO -->
+<div class="container">
+    <div class="card-group shadow">
+
+        <!-- DE CÓDIGO A DIAGRAMA -->
+        <div class="card" id="id-card">
+            <div class="card-body">
+                <h4 class="card-title">TRANSFORMACIÓN DE CÓDIGO A DIAGRAMA:</h4>
+                <p></p>
+                <p class="card-text"></p>
+                <a href="{{ url_for('code_to_diagram') }}"><button class="btn btn-primary" type="button">TRANSFORMAR!</button></a>
+            </div>
+        </div>
+
+        <!-- DE DIAGRAMA A CÓDIGO -->
+        <div class="card border rounded-0" id="id-card">
+            <div class="card-body">
+                <h4 class="card-title">TRANSFORMACIÓN DE DIAGRAMA A CÓDIGO:</h4>
+                <p></p>
+                <p class="card-text"></p>
+                <a href="{{ url_for('diagram_to_code') }}"><button class="btn btn-primary" type="button">TRANSFORMAR!</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

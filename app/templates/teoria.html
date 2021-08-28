@@ -1,0 +1,73 @@
+{% extends './layout.html' %}
+
+{% block title %}LVaED::TEORÍA{% endblock %}
+
+{% block body %}
+
+<!-- CONTENEDOR PRESENTACIÓN MÓDULO -->
+<div class="shadow" id="teoria-container">
+    <div class="jumbotron" style="background-color: rgba(233,236,239,0.9);">
+        <h1>BIENVENID@ AL MÓDULO DE TEORÍA</h1>
+        <p style="font-size: 18px;">En este módulo encontrarás una breve explicación de cada estructura de datos, así como los principales métodos que debería tener la implementación de cada estructura. Al final de la teoría de cada estructura de datos encontrarás los referentes
+            bibliográficos utilizados, con el fin de que puedas continuar tu aprendizaje.&nbsp; El objetivo de este módulo es que logres comprender de una manera sencilla la estructura, y de este modo, la implementación de la misma te resulte más
+            sencila!</p>
+        <p style="font-size: 18px;">A CONTINUACIÓN SELECCIONA LA ESTRUCTURA QUE DESEAS CONSULTAR:</p>
+    </div>
+</div>
+
+<!-- TARJETAS CONTENEDORAS DE LAS DIFERENTES ESTRUCTURAS -->
+<div class="container">
+    <div class="card-group shadow">
+        <div class="card" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/simple_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA SIMPLEMENTE ENLAZADA</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/simple_circular_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA SIMPLEMENTE ENLAZADA CIRCULAR</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/circular_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA DOBLEMENTE ENLAZADA</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+    </div>
+    <div class="card-group shadow">
+        <div class="card" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/double_circular_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA DOBLEMENTE ENLAZADA CIRCULAR</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/pila.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">PILA</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/cola.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">COLA</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+    </div>
+    <div class="card-group shadow">
+        <div class="card" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/cola_prioridad.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">COLA CON PRIORIDAD</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/árbol-bb.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">ÁRBOL BINARIO</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/árbol-avl.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">ÁRBOL AVL</h4>
+                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

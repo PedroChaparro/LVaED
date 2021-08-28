@@ -1,0 +1,147 @@
+{% extends './layout.html' %}
+
+{% block title %}LVaED::IMPLEMENTACIONES{% endblock %}
+
+{% block body %}
+
+<!-- CONTENEDOR PRESENTACIÓN DEL MÓDULO -->
+<div class="shadow" id="implementaciones-container">
+    <div class="jumbotron" style="background-color: rgba(233,236,239,0.9);">
+        <h1>BIENVENID@ AL MÓDULO DE IMPLEMENTACIONES</h1>
+        <p style="font-size: 18px;">En este módulo encuentras las implementaciones (en código) de cada una de las estructuras de datos mostradas en el módulo de teoría. Podrás acceder al código de las diferentes estructuras en tres lenguajes de programación, Java, Python y C++,
+            el código está debidamente documentado y tendrás la opción de descargarlo, si lo deseas.</p>
+        <p style="font-size: 18px;">A CONTINUACIÓN PODRÁS ENCONTRAR LAS DIFERENTES ESTRUCTURAS CON LOS ENLACES PARA ACCEDER A LA IMPLEMENTACIÓN EN EL LENGUAJE QUE DESEES:</p>
+    </div>
+</div>
+
+<!-- CONTENEDOR DE LAS DIFERENTES TARJETAS CON LA ESTRUCTURA DE DATOS Y LOS BOTONOES JAVA PYTHON Y C++ -->
+<div class="container">
+
+    <!-- SE HA DIVIDIDO EN GRUPOS DE A TRES -->
+    <!-- PRIMER GRUPO -->
+    <div class="card-group shadow">
+        
+        <div class="card" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/simple_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA SIMPLEMENTE ENLAZADA</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="CodeImplementaciones/PythonCode/listaSimple.html" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/simple_circular_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA SIMPLEMENTE ENLAZADA CIRCULAR</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="CodeImplementaciones/PythonCode/listaSimpleCircular.html" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/circular_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA DOBLEMENTE ENLAZADA</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="CodeImplementaciones/PythonCode/listaDoble.html" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SEGUNDO GRUPO -->
+    <div class="card-group shadow">
+
+        <div class="card" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/double_circular_list.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">LISTA DOBLEMENTE ENLAZADA CIRCULAR</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="CodeImplementaciones/PythonCode/listaDobleCircular.html" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/pila.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">PILA</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="CodeImplementaciones/PythonCode/pila.html" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/cola.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">COLA</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="CodeImplementaciones/PythonCode/cola.html" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TERCER GRUPO -->
+    <div class="card-group shadow">
+
+        <div class="card" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/cola_prioridad.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">COLA CON PRIORIDAD</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <button class="btn btn-primary" id="btn_python" type="button">PYTHON</button>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/árbol-bb.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">ÁRBOL BINARIO</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <button class="btn btn-primary" id="btn_python" type="button">PYTHON</button>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+        <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/árbol-avl.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">ÁRBOL AVL</h4>
+                <p class="card-text"></p>
+
+                <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
+                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <button class="btn btn-primary" id="btn_python" type="button">PYTHON</button>
+                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

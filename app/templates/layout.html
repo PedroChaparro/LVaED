@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <!-- BLOQUE PARA LOS TÍTULOS DE LAS DIFERNTES PÁGINAS-->
+    <title>{% block title %}{% endblock %}</title>  
+
+   <!--ESTILOS CSS QUE COMPARTEN TODAS LAS PÁGINAS--> 
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/untitled.css')}}">
+
+</head>
+
+<body>
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-light navbar-expand-md shadow" style="background-color: #ffffff;font-size: 18px;">
+        <div class="container-fluid"><a class="navbar-brand" href="{{ url_for('index') }}" style="font-size: 30px;color: rgb(171,135,255);"><strong>LVaED</strong></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse text-right" id="navcol-1">
+                <ul class="nav navbar-nav text-right ml-auto">
+                    <li class="nav-item text-right" role="presentation"></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link shadow" href="{{ url_for('teoria') }}" style="color: rgb(255,255,255);">TEORÍA</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link shadow" href="{{ url_for('implementaciones') }}" style="color: rgb(255,255,255);">IMPLEMENTACIONES</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link shadow" href="{{ url_for('transformaciones') }}" style="color: rgb(255,255,255);">TRANSFORMACIONES</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+
+    <!-- BLOQUE DEL CUERPO PARA EDITARLO EN CADA PÁGINA HTML-->
+    {% block body %}{% endblock %}
+
+    <!--SCRIPTS JS QUE COMPARTEN TODAS LAS PÁGINAS-->
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+
+</body>
+
+</html>

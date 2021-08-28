@@ -1,0 +1,53 @@
+{% extends './layout.html' %}
+
+{% block title %}LVaED{% endblock %}
+
+{% block body %}
+
+ <!-- CONTENEDOR DE PRESENTACIÓN DE LA PÁGINA -->
+ <div class="shadow" id="presentation-container">
+    <div class="jumbotron" style="background-color: rgba(233,236,239,0.9);">
+        <h1>¿QUÉ ES LVaED?</h1>
+        <p style="font-size: 18px;"><br>LVaED es una herramienta virtual con la que podrás reforzar tus conocimientos sobre estructuras de datos. Esta página está conformada por tres módulos:&nbsp;<strong>El módulo de teoría</strong>, en el que encontrarás la definición y principales
+            métodos de cada estructura de datos,&nbsp;<strong>El módulo de implementaciones,</strong>&nbsp;en el que encontrarás la implementación (código) de cada estructura de datos en los tres lenguajes soportados (Java, Python y C++) y por último,&nbsp;<strong>el módulo de Transformaciones</strong>,
+            mediante el cual podrás realizar transformaciones de diagrama a código y viceversa.&nbsp;<br><br></p>
+        <p></p>
+    </div>
+</div>
+
+<!-- CONTENEDOR TARJETAS DE PRESENTACIÓN DE LOS MÓDULOS -->
+<div class="container" id="cards-container">
+
+    <div class="card-group shadow">
+
+        <!-- TEORÍA -->
+        <div class="card"><img class="card-img-top w-100 d-block" id="cardImage" src="{{url_for('static', filename='img/card1.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">MÓDULO DE TEORÍA</h4>
+                <p class="card-text"></p>
+                <a href="{{ url_for('teoria') }}"><button class="btn btn-primary" type="button">ACCEDER A LA TEORÍA</button></a>
+            </div>
+        </div>
+
+        <!-- IMPLEMENTACIONES -->
+        <div class="card"><img class="card-img-top w-100 d-block" id="cardImage" src="{{url_for('static', filename='img/module-implementaciones.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">MÓDULO DE IMPLEMENTACIONES</h4>
+                <p class="card-text"></p>
+                <a href="{{ url_for('implementaciones') }}"><button class="btn btn-primary" type="button">ACCEDER A LAS IMPLEMENTACIONES</button></a>
+            </div>
+        </div>
+
+        <!-- TRANSFORMACIONES -->
+        <div class="card"><img class="card-img-top w-100 d-block" id="cardImage" src="{{url_for('static', filename='img/card3.jpg')}}">
+            <div class="card-body">
+                <h4 class="card-title">MÓDULO DE TRANSFORMACIONES</h4>
+                <p class="card-text"></p>
+                <a href="{{ url_for('transformaciones') }}"><button class="btn btn-primary" type="button">ACCEDER A LAS TRANSFORMACIONES</button></a>
+                </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
