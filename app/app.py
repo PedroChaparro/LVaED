@@ -53,6 +53,11 @@ def extractGraphInfo(code_tree):
 
     temp_class_attributes_list = []
     temp_class_methods_list = []
+    temp_class_imports_list = []
+
+    temp_method_args_list = []
+    temp_methods_args_dict = {}
+
 
     #Walk throught the ast 
     for nodo in code_tree.body:
@@ -66,6 +71,13 @@ def extractGraphInfo(code_tree):
                 if isinstance(sub_node, ast.FunctionDef):
                     
                     temp_class_methods_list.append(sub_node.name); 
+
+                    #Obtain method args
+                    for a in sub_node.args.args:
+                        temp_method_args_list.append(a.arg)
+                    
+                    temp_methods_args_dict[sub_node.name] = temp_method_args_list.copy()
+                    temp_method_args_list.clear()
 
                     #In the __init__ method, search for the class attributes
                     if(sub_node.name == '__init__'): 
@@ -86,13 +98,15 @@ def extractGraphInfo(code_tree):
             output_dictionary[nodo.name] = {
 
                 'Attributes' : [i for i in temp_class_attributes_list], 
-                'Methods': [i for i in temp_class_methods_list]
+                'Methods': [i for i in temp_class_methods_list],
+                'Methods_args': temp_methods_args_dict.copy()
 
             }
 
             #Clear attributes and methods lists
             temp_class_methods_list.clear()
             temp_class_attributes_list.clear()
+            temp_methods_args_dict.clear()
     
     return output_dictionary
     
