@@ -7,7 +7,7 @@
 
 LVeED is a WebApplication designed for the people who want learn about data structures (Lists, Queue, Stack, Binary Trees, etc). In the web site, the people can see theory and implementations (In Java, Python and C++). Additionaly, there is a "transformation module" that let people transform Python code into a Graph diagram and backwards. 
 
-## PREVIEW (TIL DATE)
+## PREVIEW
 
 ### HOME PAGE: 
 
@@ -36,5 +36,10 @@ LVeED is a WebApplication designed for the people who want learn about data stru
 ### CODE TO DIAGRAM PAGE
 
 <table><tr><td>
-    <img src="https://i.ibb.co/k15Qjkd/CODE-TO-DIAGRAM.png" />
+    <img src="https://i.ibb.co/G7PR3yx/CODE-TO-DIAGRAM.png" />
+</td></tr></table>
+
+### CODE TO DIAGRAM(ZOOMED IN)
+<table><tr><td>
+    <img src="https://i.ibb.co/sHFYHvr/CODE-TO-DIAGRAM-ZOOM.png" />
 </td></tr></table>
