@@ -1,0 +1,450 @@
+{% extends '././layout.html' %}
+
+{% block title %}Simple Linked List PYTHON{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN LISTA SIMPLE PYTHON:</h1></center><br>
+
+    <pre>
+        <code class="language-python">
+    import numpy as np
+    
+    #CREACIÓN DE LA CLASE NODO
+    
+    class ListNode: 
+    
+        #CONSTRUCTOR DE LA CLASE LISTNODE
+    
+        #Constructor de una lista vacía
+        def __init__(self):
+            #Atributos de la clase ListNode
+            self.object = None
+            self.next = None
+    
+        #MÉTODOS DE LA CLASE LISTNODE
+    
+        #Método para asignar un objeto
+        def setObject(self, objeto):
+            self.object = objeto
+    
+        #Método para asignar el siguiente nodo
+        def enlazarSiguiente(self, nextNode):
+            self.next = nextNode
+    
+        #Método para obtener el nodo siguiente
+        def getNextTo(self):
+            return self.next
+        
+        #Método para obtener el objeto almacenado por el nodo
+        def getObject(self):
+            return self.object
+        
+        #Método para saber si un nodo almacena un objeto
+        def isEquals(self, objeto):
+            #Se retorna si el objeto almacenado por el nodo es igual al objeto preguntado
+            return self.object == objeto
+    
+        #Método para imprimir todos los nodos
+        def toString(self):
+            print("ListNode: { object: " + str(self.getObject()) + " } nextListNode --> " )
+            
+            if self.next != None:
+                self.next.toString()
+            else: 
+                print("ListNode: None")
+    
+        #Método para imprimir la información de un solo nodo
+        def showInformation(self):
+            print("ListNode: { object: " + str(self.getObject()) + " } " )
+    
+            if self.next != None: 
+                print("Next node Object: " + str(self.next.getObject()))
+            else:
+                print("Next node Object: None")
+    
+    #CREACIÓN DE LA CLASE LISTA
+    
+    class List: 
+    
+        #CONSTRUCTOR DE LA CLASE LIST
+    
+        #Constructor de una lista vacía
+        def __init__(self):
+            #Atributos de la clase List
+            self.head = None; 
+            self.tail = None; 
+            self.size = 0; 
+        
+        #MÉTODOS DE LA CLASE LIST
+    
+        #Método para saber si la lista está vacía
+        def isEmpty(self):
+            #Si el puntero de la cabeza es Null (None) la lista está vacía
+            return self.head == None
+        
+        #Método para insertar un objeto desúes de la cola de la lista
+        def insertTail(self, objeto):
+            if self.isEmpty(): 
+                #Si la cabeza es nula, se crea un nodo
+                temp = ListNode()
+                temp.setObject(objeto)
+                #La cabeza será el nuevo nodo
+                self.head = temp
+                #La cola será igual a la cabeza
+                self.tail = self.head
+                #Se aumenta el valor de size
+                self.size = self.size +1
+            else:
+                #Se crea un nuevo nodo
+                temp = ListNode()
+                temp.setObject(objeto)
+                #El siguiente elemento a la actual cola va a ser el nuevo nodo
+                self.tail.next = temp
+                #El valor de cola es tomado por el nuevo nodo
+                self.tail = temp
+                #Se aumenta el valor de size
+                self.size = self.size +1
+        
+        #Mëtodo para añadir un objeto a la lista
+        def add(self, objeto):
+            if objeto != None: 
+                #Si el objeto no es nulo, se llama el método para insertar por la cola
+                self.insertTail(objeto)
+        
+        #Método para imprimir la lista
+        def listToString(self):
+            #Se crea un nodo temporal que empezará en la cabeza de la lista
+            temp = ListNode()
+            temp = self.head
+            #Se llama al método de ListNode tostring() que imprime la información de todos los nodos
+            temp.toString()
+    
+        #Método para obtener el tamaño de la lista
+        def getSize(self):
+            return self.size
+    
+        #Método para limpiar la lista (Convertir la lista a nula)
+        def clear(self):
+            self.head = None
+            self.tail = None
+            self.size = 0
+    
+        #Método para obtener el nodo cabeza de la lista
+        def getHead(self):
+            return self.head
+    
+        #Método para obtener el objeto del nodo cabeza de la lista
+        def getHeadObject(self):
+            return self.head.getObject()
+        
+        #Método para obtener el nodo cola de la lista
+        def getTail(self):
+            return self.tail
+        
+        #Método para obtener el objeto del nodo cola de la lista
+        def getTailObject(self):
+            return self.tail.getObject()
+        
+        #Método para buscar un objeto en la lista y retornar el nodo que lo contiene
+        def search(self, objeto):
+            #Variable ListNode para iterar la lista
+            temp = ListNode()
+            temp = self.head
+    
+            #Se recorre la lista en busca de un nodo que almacene el objeto buscado
+    
+            encontrado = False; 
+    
+            for i in range(1, self.size+1):
+                if temp.getObject() == objeto:
+                    #Si se encuentra un objeto igual al buscado, se retorna el nodo que lo contiene
+                    encontrado = True; 
+                    break
+                else:
+                    #Se pasa al siguiente nodo para seguir buscando
+                    temp = temp.next
+            
+            if encontrado == True: 
+                return temp
+            else: 
+                #Si no se encontró el objeto, se retorna none
+                return None; 
+        
+        #Método para insertar un objeto después de un nodo específico
+        def insert(self, node, objeto):
+            if node.getNextTo() == None: 
+                #Si el nodo ingresado es None, es porque el nodo es la cola
+                #Se llama el método Add para añadir por la cola
+                self.add(objeto)
+                return True
+            else: 
+                #Si el nodo no es la cola
+                #a -> b -> c insert(b, object) = a -> b -> newNode -> c
+                newNode = ListNode()
+                newNode.setObject(objeto)
+                #El siguiente nodo del nuevo nodo será el siguiente nodo del nodo
+                newNode.enlazarSiguiente(node.getNextTo())
+                #El siguiente nodo será el nuevo nodo
+                node.enlazarSiguiente(newNode)
+                return True
+        
+        #Método para insertar un objeto después de otro objeto
+        def insertAfterObjeto(self, objeto, objetoInsertar):
+            if objeto != None:
+                #Si el objeto no es nulo
+                node = ListNode()
+                node = self.search(objeto)
+    
+                if node != None: 
+                    #Si se encontró el objeto
+                    return self.insert(node, objetoInsertar)
+                else:
+                    #Si no se encontró el objeto, se retorna falso
+                    return False
+        
+        #Método para insertar un objeto por la cabeza
+        def insertHead(self, objeto):
+            if self.isEmpty():
+                #Si la lista está vacía
+    
+                #Se crea un nodo para almacenar el objeto
+                node = ListNode()
+                node.setObject(objeto)
+    
+                #El nuevo nodo va a ser la cabeza y la cola
+                self.head = node
+                self.tail = self.head
+    
+                #Se suma uno al tamaño de la lista
+                self.size = self.size+1
+            else:
+                newHead = ListNode()
+                newHead.setObject(objeto)
+    
+                newHead.enlazarSiguiente(self.head)
+                self.head = newHead
+    
+                #Se suma uno al tamaño de la lista
+                self.size = self.size+1
+        
+        #Método para remover un nodo
+        def remove(self, node):
+            #Variable de retorno, por default = False
+            retorno = False
+    
+            #Nodos para recorrer la lista
+            temp = ListNode()
+            temp = self.head
+    
+            beforeTemp = ListNode()
+            beforeTemp = None
+    
+            for i in range(1, self.size+1):
+                if temp.getObject() == node.getObject():
+                    #Si se encontró el nodo a eliminar
+                    #Se verifica si es la cabeza
+                    if temp == self.head:
+                        #La cabeza ahora será el nodo que antes era siguiente a la cabeza
+                        self.head = self.head.getNextTo()
+    
+                        #Se cambiar la variable de retorno a True
+                        retorno = True
+                        break; 
+                    else: 
+                        beforeTemp.next = temp.getNextTo()
+    
+                        #Se cambiar la variable de retorno a True
+                        retorno = True
+                        break
+                
+                beforeTemp = temp
+                temp = temp.getNextTo()
+        
+        #Método para eliminar un objeto de la lista
+        def objectToNone(self, objeto):
+            #Variable de retorno, por default = false
+            retorno = False
+    
+            temp = ListNode()
+            temp = self.getHead()
+    
+            while temp != None:
+                
+                #Se comparan los objetos
+                if temp.getObject() == objeto:
+                    temp.setObject(None)
+    
+                    #El retorno se hace True
+                    retorno = True
+                    break; 
+    
+                temp = temp.getNextTo()
+            
+            return retorno
+    
+        #Método para saber si la lista contiene un objeto
+        def contains(self, objeto):
+            #Se llama el método Search
+            resultado = ListNode()
+            resultado = self.search(objeto)
+    
+            #Si el resultado no es None, se encontró el objeto
+            if resultado != None:
+                return True; 
+            else:
+                return False; 
+    
+        #Método para pasar todos los objetos almacenados por la lista a un Array
+        def toArray(self):
+            #Se crea una lista (De Python) para almacenar los objetos de la lista
+            data = []
+    
+            #Nodo para recorrer la lista
+            temp = ListNode()
+            temp = self.head
+    
+            for i in range(1, self.size+1):
+                #Se agrega a la lista de Pyton el objeto del nodo temp
+                data.append(temp.getObject())
+    
+                #El valor de temp pasa al siguiente nodo
+                temp = temp.getNextTo()
+    
+            array = np.array(data)
+    
+            return array
+        
+        #Método para obtener el nodo anterior a otro nodo
+        def getBeforeTo(self, node):
+    
+            #Retorno que inicialmente es nulo
+            retorno = ListNode()
+            retorno = None
+    
+            #Nodos para recorrer la lista
+            temp = ListNode()
+            temp = self.getHead()
+            
+            beforeTemp = ListNode()
+            beforeTemp = None
+    
+            for i in range(1, self.size+1):
+                if temp.getObject() == node.getObject():
+                    
+                    #Si se encontró el nodo, se verifica si es la cabeza
+                    if temp == self.getHead():
+                        #Si el nodo es la cabeza, se retorna Null porque no hay un nodo anterior
+                        retorno = None
+                        break;
+                    else: 
+                        retorno = beforeTemp
+                        break; 
+                    
+                beforeTemp = temp
+                temp = temp.getNextTo()
+            
+            return retorno
+        
+        #Método para obtener el objeto anterior a un objeto dado
+        def getBeforeObjectTo(self, objeto):
+            #Se crea un nodo que almacene el objeto y se llama al método getBeforeTo
+            node = ListNode()
+            node.setObject(objeto)
+    
+            nodoRta = ListNode()
+            nodoRta = self.getBeforeTo(node)
+    
+            if nodoRta != None:
+                return nodoRta.getObject()
+            else:
+                return None
+        
+        #Método para obtener el nodo siguiente a un nodo dado
+        def getNextTo(self, node):
+            return node.next
+        
+        #Método para generar una sublista
+        def subList(self, desde, hasta):
+            sublist = List()    
+    
+            if(desde != None and hasta != None):
+                #Nodos para recorrer la lista
+                temp = ListNode()
+                temp = desde
+    
+                sublist.add(temp.getObject())
+                temp = temp.getNextTo()
+    
+                #El nodo hasta = hasta.next para incluirlo
+                hasta = hasta.getNextTo()
+    
+                while(temp != None and temp != hasta):
+                    sublist.add(temp.getObject())
+                    temp = temp.getNextTo()
+    
+                sublist.getTail().next = None; 
+                return sublist
+    
+            else: 
+                return None
+        
+        #Método para ordenar una lista
+        def sortList(self):
+            #Se crea una nueva lista
+            sortedList = List()
+    
+            #Variables para recorrer la LISTA DESORDENADA
+            temp = ListNode()
+            temp = self.getHead()
+    
+            #Lista de Python para almacenar todos los objetos de la Lista desordenada
+            allObjects = []
+    
+            #Se recorre la lista desordenada para obtener todos los objetos
+            for i in range(1, self.getSize() +1):
+                objeto = temp.getObject()
+                allObjects.append(objeto)
+    
+                temp = temp.getNextTo()
+    
+            #Se ordena la lista de Python
+            allObjects.sort()
+    
+            #Se recorre la lista de Python y se agrega a "mi lista"
+            for objetoOrdenado in allObjects[0 : self.getSize()+1]:
+                sortedList.add(objetoOrdenado)
+            
+            #Se retorna la lista ordenada
+            return sortedList
+    
+        #Método para insertar un nodo después de otro
+        def insertNodeAfter(self, afterThis, thisNode):
+            #Se obtiene el objeto del nodo que se desea agregar
+            objeto = thisNode.getObject()
+    
+            #Se llama al método insert()
+            self.insert(afterThis, objeto)
+    
+        #Método para saber si un nodo tiene nodo siguiente
+        def hasNext(self, node):
+            return node.getNextTo() != None
+        
+        #Método para recorrer la lista y mostrar la información de cada nodo
+        def rec(self, node):
+            node.showInformation()
+            if(node.getNextTo() != None):
+                self.rec(node.getNextTo())     
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

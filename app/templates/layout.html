@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon_io/favicon.ico')}}">
+
     <!-- BLOQUE PARA LOS TÍTULOS DE LAS DIFERNTES PÁGINAS-->
     <title>{% block title %}{% endblock %}</title>  
 
@@ -36,8 +38,8 @@
     {% block body %}{% endblock %}
 
     <!--SCRIPTS JS QUE COMPARTEN TODAS LAS PÁGINAS-->
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script> 
 
 </body>
 

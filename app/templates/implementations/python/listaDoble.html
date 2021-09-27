@@ -1,0 +1,229 @@
+{% extends '././layout.html' %}
+
+{% block title %}Double Linked List{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN LISTA DOBLEMENTE ENLAZADA PYTHON:</h1></center><br>
+
+    <pre>
+        <code class="language-python">
+# -------- Creación de la clase nodo -------- 
+class listNode: 
+
+    #Constructor de la clase
+    def __init__(self):
+        #Atributos de la clase listNode
+        self.object = None
+        self.next = None
+        self.before = None
+    
+    #MÉTODOS DE LA CLASE listNode
+
+    #Método para asignar un objeto
+    def setObject(self, objeto): 
+        self.object = objeto
+    
+    #Método para asignar el siguiente nodo
+    def enlazarSiguiente(self, nextNode):
+        self.next = nextNode
+
+    #Método para asignar el anterior nodo
+    def enlazarAnterior(self, beforeNode):
+        self.before = beforeNode
+
+    #Método para obtener el siguiente nodo
+    def getNextTo(self):
+        return self.next
+
+    #Método para obtener el anterior nodo  
+    def getBeforeTo(self):
+        return self.before
+
+    #Método para obtener el objeto del nodo
+    def getObject(self):
+        return self.object
+
+    def toString(self): 
+        print("ListNode: { object: " + str(self.getObject()) + " } nextListNode --> " )
+        
+        if self.next != None:
+            self.next.toString()
+        else: 
+            print("ListNode: None")
+    
+    def toStringINV(self): 
+        print("ListNode: { object: " + str(self.getObject()) + " } beforeListNode --> " )
+        
+        if self.before != None:
+            self.before.toStringINV()
+        else: 
+            print("ListNode: None")
+
+# -------- Creación de la clase lista doblemente enlazada -------- 
+
+class list: 
+
+    #CONSTRUCTOR DE LA CLASE LIST
+
+    #Constructor de una lista vacía
+    def __init__(self):
+        #Atributos de la clase List
+        self.head = None; 
+        self.tail = None; 
+        self.size = 0; 
+
+    #MÉTODOS DE LA CLASE
+
+    #Método para saber si la lista está vacía
+    def isEmpty(self):
+        #Si el puntero de la cabeza es Null (None) la lista está vacía
+        return self.head == None
+
+    #Método para insertar un objeto por la cola de la lista
+    def insertTail(self, objeto):
+
+        if self.isEmpty(): 
+            #Si la cabeza es nula, se crea un nodo
+            temp = listNode()
+            temp.setObject(objeto)
+
+            #La cabeza será el nuevo nodo
+            self.head = temp
+            #La cola será igual que la cabeza
+            self.tail = self.head
+            #Se aumenta el size
+            self.size = self.size+1
+        else: 
+            #Se crea un nuevo nodo
+            temp = listNode()
+            temp.setObject(objeto)
+
+            #Se hacen los nuevos enlaces
+            self.tail.next = temp
+            temp.before = self.tail
+            self.tail = temp
+
+            #Se aumenta el valor del size
+            self.size = self.size +1
+    
+    #Mëtodo para añadir un objeto a la lista
+    def add(self, objeto):
+        if objeto != None: 
+            #Si el objeto no es nulo, se llama el método para insertar por la cola
+            self.insertTail(objeto)
+
+    #Método para inprimir la lista en forma de string
+    def toString(self):
+        if self.head != None:
+            self.head.toString()
+        else: 
+            print("NONE")
+    
+    #Método para imprimir la lista comenzando desde la cola
+    def toStringINV(self):
+        if self.tail != None: 
+            self.tail.toStringINV()
+        else: 
+            print("NONE")
+    
+    #Método para obtener el tamaño de la lista
+    def getSize(self):
+        return self.size
+
+    #Método para limpiar la lista (Convertir la lista a nula)
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    #Método para obtener el nodo cabeza de la lista
+    def getHead(self):
+        return self.head
+
+    #Método para obtener el objeto del nodo cabeza de la lista
+    def getHeadObject(self):
+        return self.head.getObject()
+    
+    #Método para obtener el nodo cola de la lista
+    def getTail(self):
+        return self.tail
+    
+    #Método para obtener el objeto del nodo cola de la lista
+    def getTailObject(self):
+        return self.tail.getObject()
+
+    #Método para buscar un objeto en la lista y retornar el nodo que lo contiene
+    def search(self, objeto):
+        #Variable ListNode para iterar la lista
+        temp = listNode()
+        temp = self.head
+
+        #Se recorre la lista en busca de un nodo que almacene el objeto buscado
+
+        encontrado = False; 
+
+        for i in range(1, self.size+1):
+            if temp.getObject() == objeto:
+                #Si se encuentra un objeto igual al buscado, se retorna el nodo que lo contiene
+                encontrado = True; 
+                break
+            else:
+                #Se pasa al siguiente nodo para seguir buscando
+                temp = temp.next
+        
+        if encontrado == True: 
+            return temp
+        else: 
+            #Si no se encontró el objeto, se retorna none
+            return None; 
+    
+    #Método para remover un nodo
+    def remove(self, node):
+        #Variable de retorno, por default = False
+        retorno = False
+
+        #Nodos para recorrer la lista
+        temp = listNode()
+        temp = self.head
+
+        beforeTemp = listNode()
+        beforeTemp = None
+
+        for i in range(1, self.size+1):
+            if temp.object == node.object:
+                #Si se encontró el nodo a eliminar
+                #Se verifica si es la cabeza
+                if temp == self.head:
+                    #La cabeza ahora será el nodo que antes era siguiente a la cabeza
+                    self.head = (self.head).next
+                    self.head.before = None
+
+                    #Se cambiar la variable de retorno a True
+                    retorno = True
+                    break; 
+                else: 
+
+                    (temp.next).before = beforeTemp
+                    beforeTemp.next = temp.next
+
+                    #Se cambiar la variable de retorno a True
+                    retorno = True
+                    break
+            
+            #Se sigue iterando
+            beforeTemp = temp
+            temp = temp.getNextTo()
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

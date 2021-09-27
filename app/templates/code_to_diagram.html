@@ -4,6 +4,13 @@
 
 {% block body %}
 
+<!-- IMPORT VISJS LIBRARY FOR THE GRAPH -->
+
+<script src="{{url_for('static', filename='js/visJS/dist/vis.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='js/visJS/dist/vis.css')}}">
+
+<!-- -->
+
 <div class="container">
     <h2>TRANSFORMACIÓN DE CÓDIGO A DIAGRAMA</h2>
     <div class="card">
@@ -12,9 +19,18 @@
         
 
             <!--  ACÁ DEBE IR LO RELACIONADO CON RECIBIR EL ARCHIVO DE PYTHON  -->
+
+            <form action="/code_to_diagram" method='POST'" enctype="multipart/form-data">
+            
+                <input type="file" name="archivoPython" accept=".py"><br><br>
+                <input type="submit" value="TRANSFORMAR A DIAGRAMA">      <!--CUANDO SE HACE CLICK EN EL BOTÓN LE AVISA AL JS-->
+
+            </form>
+
+            <!--
             <input type="file" name="archivoPython" accept=".py"><br><br>
             <input type="submit" value="TRANSFORMAR A DIAGRAMA">
-
+            -->
 
         </div>
     </div>
@@ -27,5 +43,21 @@
     <!--  NETWORK SPACE  -->
     <div class="border rounded-0 shadow" id="network"></div>
 </div>
+
+<!-- JAVASCRIPT CODE FOR GENERATE THE GRAPH -->
+
+<!-- Import code_to_diagram.js file -->
+<script src="{{url_for('static', filename='js/code_to_diagram.js')}}"></script>
+
+<script>
+    
+    // ------------- OBTAIN DATA FROM PYTHON/FLASK  -------------
+
+    //Python Dictionary to JSON file 
+    var GraphData = JSON.parse('{{ PythonDic | tojson | safe }}');      //Converty python Dictonary to JSON syntax
+
+    makeGraph(GraphData);   //makeGraph function is called, the arg is the JSON file that contains the data    
+
+</script>
 
 {% endblock %}
