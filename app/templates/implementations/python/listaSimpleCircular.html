@@ -1,0 +1,264 @@
+{% extends '././layout.html' %}
+
+{% block title %}Simple Circular List PYTHON{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN LISTA SIMPLE CIRCULAR PYTHON:</h1></center><br>
+
+    <pre>
+        <code class="language-python">
+#CREACIÓN DE LA CLASE NODO
+
+class ListNode: 
+
+    #CONSTRUCTOR DE LA CLASE LISTNODE
+
+    #Constructor de una lista vacía
+    def __init__(self):
+        #Atributos de la clase ListNode
+        self.object = None
+        self.next = None
+
+    #MÉTODOS DE LA CLASE LISTNODE
+
+    #Método para asignar un objeto
+    def setObject(self, objeto):
+        self.object = objeto
+
+    #Método para asignar el siguiente nodo
+    def enlazarSiguiente(self, nextNode):
+        self.next = nextNode
+
+    #Método para obtener el nodo siguiente
+    def getNextTo(self):
+        return self.next
+    
+    #Método para obtener el objeto almacenado por el nodo
+    def getObject(self):
+        return self.object
+    
+    #Método para saber si un nodo almacena un objeto
+    def isEquals(self, objeto):
+        #Se retorna si el objeto almacenado por el nodo es igual al objeto preguntado
+        return self.object == objeto
+
+    #Método para imprimir todos los nodos
+    def toString(self):
+        print("ListNode: { object: " + str(self.getObject()) + " } nextListNode --> " )
+
+#CREACIÓN DE LA CLASE LISTA
+
+class circular_List: 
+
+    #CONSTRUCTOR DE LA CLASE circular_List
+
+    #Constructor de una lista vacía
+    def __init__(self):
+        #Atributos de la clase List
+        self.head = None; 
+        self.tail = None; 
+        self.size = 0; 
+    
+    #MÉTODOS DE LA CLASE LIST
+
+    #Método para saber si la lista está vacía
+    def isEmpty(self):
+        #Si el puntero de la cabeza es Null (None) la lista está vacía
+        return self.head == None
+
+    #Método para agregar en enlace cola -> cabeza, propio de la lista circular simplemente enlazada
+    def toCircular(self): 
+
+        #La cola apuntará a la cabeza
+        self.tail.next = self.head
+    
+    #Método para insertar un objeto desúes de la cola de la lista
+    def insertTail(self, objeto):
+        if self.isEmpty(): 
+            #Si la cabeza es nula, se crea un nodo
+            temp = ListNode()
+            temp.setObject(objeto)
+            #La cabeza será el nuevo nodo
+            self.head = temp
+            #La cola será igual a la cabeza
+            self.tail = self.head
+            #Se aumenta el valor de size
+            self.size = self.size +1
+        else:
+            #Se crea un nuevo nodo
+            temp = ListNode()
+            temp.setObject(objeto)
+            #El siguiente elemento a la actual cola va a ser el nuevo nodo
+            self.tail.next = temp
+            #El valor de cola es tomado por el nuevo nodo
+            self.tail = temp
+            
+            #////SE LLAMA AL MÉTODO PARA ENLAZAR LA COLA A LA CABEZA
+            self.toCircular()
+            
+            #Se aumenta el valor de size
+            self.size = self.size +1
+        
+    #Mëtodo para añadir un objeto a la lista
+    def add(self, objeto):
+        if objeto != None: 
+            #Si el objeto no es nulo, se llama el método para insertar por la cola
+            self.insertTail(objeto)
+    
+    #Método para imprimir la lista
+    def listToString(self):
+        
+        #Nodo temporal par recorrer la lista
+        temp = ListNode()
+        temp = self.head
+
+        #For para recorrer la lista
+        #El for es el límite para imprimir hasta la cola y no continuar
+        for i in range(1, self.size+1): 
+            temp.toString()
+            temp = temp.next
+        
+
+    #Método para obtener el tamaño de la lista
+    def getSize(self):
+        return self.size
+
+    #Método para limpiar la lista (Convertir la lista a nula)
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    #Método para obtener el nodo cabeza de la lista
+    def getHead(self):
+        return self.head
+
+    #Método para obtener el objeto del nodo cabeza de la lista
+    def getHeadObject(self):
+        return self.head.getObject()
+    
+    #Método para obtener el nodo cola de la lista
+    def getTail(self):
+        return self.tail
+    
+    #Método para obtener el objeto del nodo cola de la lista
+    def getTailObject(self):
+        return self.tail.getObject()
+    
+    #Método para buscar un objeto en la lista y retornar el nodo que lo contiene
+    def search(self, objeto):
+        #Variable ListNode para iterar la lista
+        temp = ListNode()
+        temp = self.head
+
+        #Se recorre la lista en busca de un nodo que almacene el objeto buscado
+
+        encontrado = False; 
+
+        #EL FOR FUNCIONA COMO UN LÍMITE PARA LLEGAR HASTA LA COLA Y NO PASAR DE LA COLA A LA CABEZA
+        for i in range(1, self.size+1):
+            if temp.getObject() == objeto:
+                #Si se encuentra un objeto igual al buscado, se retorna el nodo que lo contiene
+                encontrado = True; 
+                break
+            else:
+                #Se pasa al siguiente nodo para seguir buscando
+                temp = temp.next
+        
+        if encontrado == True: 
+            return temp
+        else: 
+            #Si no se encontró el objeto, se retorna none
+            return None; 
+    
+    #Método para remover un nodo
+    def remove(self, node):
+        #Variable de retorno, por default = False
+        retorno = False
+
+        #Nodos para recorrer la lista
+        temp = ListNode()
+        temp = self.head
+
+        beforeTemp = ListNode()
+        beforeTemp = None
+
+        #///EL FOR FUNCIONA COMO UN LÍMITE PARA NO PASAR DE LA COLA A LA CABEZA DE NUEVO
+        for i in range(1, self.size+1):
+            if temp.getObject() == node.getObject():
+                #Si se encontró el nodo a eliminar
+                #Se verifica si es la cabeza
+                if temp == self.head:
+                    #La cabeza ahora será el nodo que antes era siguiente a la cabeza
+                    self.head = self.head.getNextTo()
+
+                    #Se cambiar la variable de retorno a True
+                    retorno = True
+                    break; 
+                else: 
+                    beforeTemp.next = temp.getNextTo()
+
+                    #Se cambiar la variable de retorno a True
+                    retorno = True
+                    break
+            
+            beforeTemp = temp
+            temp = temp.getNextTo()
+    
+    #Método para saber si la lista contiene un objeto
+    def contains(self, objeto):
+        #Se llama el método Search
+        resultado = ListNode()
+        resultado = self.search(objeto)
+
+        #Si el resultado no es None, se encontró el objeto
+        if resultado != None:
+            return True; 
+        else:
+            return False; 
+    
+    #Método para ordenar una lista
+    def sortList(self):
+        #Se crea una nueva lista
+        sortedList = circular_List()
+
+        #Variables para recorrer la LISTA DESORDENADA
+        temp = ListNode()
+        temp = self.getHead()
+
+        #Lista de Python para almacenar todos los objetos de la Lista desordenada
+        allObjects = []
+
+        #Se recorre la lista desordenada para obtener todos los objetos
+        for i in range(1, self.getSize() +1):
+            objeto = temp.getObject()
+            allObjects.append(objeto)
+
+            temp = temp.getNextTo()
+
+        #Se ordena la lista de Python
+        allObjects.sort()
+
+        #Se recorre la lista de Python y se agrega a "mi lista"
+        for objetoOrdenado in allObjects[0 : self.getSize()+1]:
+            sortedList.add(objetoOrdenado)
+
+        #//SE LLAMA AL MÉTODO PARA AGREGAR LOS ENLACES PROPIOS DE UNA LISTA SIMPLEMENTE ENLAZADA
+        sortedList.toCircular()
+        
+        #Se retorna la lista ordenada
+        return sortedList 
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends '././layout.html' %}
+
+{% block title %}STACK PYTHON{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN STACK PYTHON:</h1></center><br>
+
+    <pre>
+        <code class="language-python">
+# ---- NODO DE LA COLA
+class colaNode: 
+    
+    #CONSTRUCTOR DEL NODO
+    def __init__(self):
+        #Atributos de la clase colaNode
+        self.object = None
+        self.next = None
+
+    #MÉTODOS DEL NODO
+
+    #Método para obtener el siguiente nodo
+    def getNext(self):
+
+        return self.next
+    
+    #Método para asignar el siguiente nodo
+    def setNext(self, nextNode): 
+
+        self.next = nextNode
+    
+    #Método para obtener el objeto almacenado
+    def getObject(self): 
+        
+        return self.object
+
+    #Método para asignar un objeto
+    def setObject(self , objeto):
+
+        self.object = objeto
+
+    #Método para imprimir todos los nodos
+    def toString(self):
+
+        print("Node: { object: " + str(self.getObject()) + " } nextListNode --> " )
+        
+        if self.next != None:
+            self.next.toString()
+        else: 
+            print("ListNode: None")
+
+# ---- IMPLEMENTACIÓN DE LA COLA
+
+class cola: 
+
+    #Constructor de la clase
+    def __init__(self):
+        #Atributos de la clase cola
+        self.head = None
+        self.size = 0
+        self.tail = None
+    
+    #MÉTODOS DE LA COLA
+
+    #Método para anular la cola
+    def clear(self):
+        
+        self.head = None
+        self.size = 0
+
+    #Método para saber si la cola está vacía
+    def isEmpty(self): 
+
+        #Si la cabeza es nula, no hay ningún elemento
+        if(self.head == None):
+            return True
+        else:
+            return False
+    
+    #Método para ingresar un nuevo elemento a la cola
+    def insert(self, objeto):
+        if self.head == None:
+            #Si la cola era vacía, simplemente se agrega como la cabeza de la cola
+            newNode = colaNode()
+            newNode.object = objeto
+            #Como solo hay un elemento, la cabeza y la cola son el mismo
+            self.head = newNode
+            self.tail = newNode
+            self.size = self.size+1
+        else:
+            #Si la cola no era vacía, se debe añadir después de la cabeza
+            newNode = colaNode()
+            newNode.object = objeto
+            #El nuevo nodo se agrega después de la cola de la cola
+            self.tail.next = newNode
+            #La nueva cola será el nuevo nodo agregado
+            self.tail = self.tail.next
+            self.size = self.size +1
+
+    #Método para sacar de la cola el elemento de la cabeza
+    def extract(self):
+
+        #Si no hay ningún elemento en la cola, retorna None
+        if (self.head == None):
+            return None
+        else:
+            #Nodo temporal para almacenar el objeto de la cima
+            temp = colaNode()
+            temp.setObject(self.head.object);
+            self.head = self.head.next
+            self.size = self.size-1
+            return temp.getObject()
+    
+    #Método para obtener el tamaño de la cola
+    def getSize(self):
+        
+        return self.size
+
+    #Método para buscar un objeto dentro de la cola
+    def search(self, objeto):
+        #Objeto para "recorrer la pila"
+        current = None
+
+        #Retorno, por defecto falso
+        retorno = False
+
+        #Cola para almacenar temporalmente los objetos de la cola
+        tempCola = cola()
+
+        #Varibale que almacena el size original de la cola
+        originalSize = self.size
+
+        #For par recorrer la pila en busca del objeto
+        for i in range(1, originalSize+1): 
+
+            #Se van sacando los objetos
+            current = self.extract()
+
+            #Se guarda el objeto en la pila temporal
+            tempCola.insert(current)
+
+            if current == objeto: 
+                #Si se encontró el objeto, se retorna true y se rompe el ciclo
+                retorno = True; 
+
+        #Se almacena el size original de la cola temporal
+        tempOriginalSize = tempCola.size
+
+        #Se recorre la pila temporal para agregar los elementos de nuevo a la pila
+        for i in range(1, tempOriginalSize+1): 
+            self.insert(tempCola.extract())
+        
+        return retorno
+
+    #Método para imprimir todos los nodos / objetos de la cola
+    def toString(self):
+        if self.head != None:
+            self.head.toString()
+        else:
+            print("None");  
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

@@ -1,0 +1,407 @@
+{% extends '././layout.html' %}
+
+{% block title %}Simple Linked List CPP{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN NODO LISTA SIMPLE C++:</h1></center><br>
+
+    <pre>
+        <code class="language-cpp">
+# include &ltiostream&gt
+# include &ltstring&gt
+
+
+using namespace std ; 
+
+//--------------------listNode----------------------//
+
+class listNode{
+
+    private: 
+        //Atributos de la clase
+        int object; 
+        listNode* next; 
+
+    public: 
+        //Constructores de la clase
+        listNode(); 
+        listNode(int objeto); 
+        listNode(listNode* siguiente); 
+        listNode(int objeto, listNode* siguiente); 
+        
+        //Métodos de la clase
+        
+        //Método para asignar un nodo siguiente
+        void enlazarSiguiente(listNode* siguiente){
+            
+            next = siguiente; 
+            
+        }; 
+        
+        //Método para asignar un objeto al nodo
+        
+        void setObject(int objeto){
+            
+            object = objeto; 
+            
+        }
+        
+        //Método para obtener la dirección del nodo siguiente
+        listNode* getNextTo(){
+            
+            return next; 
+            
+        }; 
+        
+        //Método par obtener el objeto guardado por un nodo
+        int getObject(){
+            
+            return object; 
+            
+        }
+        
+        //Método para saber si un nodo almacena un objeto dado 
+        bool isEquals(int objeto){
+            
+            if(object == objeto){
+                
+                //Si el objeto almacenado por el nodo es igual al objeto pasado al método se retorna True
+                //El retorno será 1
+                return true; 
+                
+            }else{
+                
+                //Si son diferentes, se retorna False
+                //El retorno será 0
+                return false; 
+                
+            }
+            
+            
+        }
+        
+        //Método para imprimir la información de un nodo
+        
+        void showInformation(){
+            
+            cout << "ListNode: \n";
+            cout << "OBJETO ALMACENADO: ";
+            cout << object; 
+            cout << "\n"; 
+            cout << "OBJETO SIGUIENTE: ";
+            
+            //Se verifica si el siguiente nodo existe
+            
+            if(getNextTo() != 0){
+                
+                if(getNextTo() -> getObject() != 0){
+                
+                //Si el objeto del siguiente nodo no es nulo
+                cout << getNextTo() -> getObject();  
+                cout << "\n"; 
+                
+                }else{
+                    
+                    cout << "NONE\n"; 
+                    
+                }
+                    
+            }else{
+                
+                cout << "NONE\n";
+                
+            }
+            
+            
+            
+        }
+        
+        //Método para imprimir la información de todos los nodos existentes
+        
+        void toString(){
+        
+            cout << "ListNode: \n";
+            cout << "OBJETO ALMACENADO: ";
+            cout << object; 
+            cout << "\n"; 
+            cout << "\nSIGUIENTE NODO --> \n\n";
+            
+            if(getNextTo() != 0 ){
+                
+                //Si el siguiente nodo existe
+                getNextTo() -> toString(); 
+                
+            }else{
+                
+                cout << "NULL\n\n"; 
+                
+            }
+            
+        }
+        
+        
+};
+
+//Implementación de la clase listNode
+
+//Constructor de un nodo vacío
+listNode::listNode(){
+    
+    object = 0; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 		//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo pasando el objeto a almacenar
+listNode::listNode(int objeto){
+    
+    object = objeto; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 			//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo pasando el puntero al siguiente nodo
+listNode::listNode(listNode* siguiente){
+    
+    object= 0;			//Valor por defecto del objeto almacenado en el nodo
+    next = siguiente; 
+    
+}
+
+//Constructor de un nodo completo, paasando el objeto y el puntero al siguiente
+listNode::listNode(int objeto, listNode* siguiente){
+    
+    object = objeto; 
+    next = siguiente; 
+    
+}
+        </code>
+    </pre>
+
+    <br><center><h1>IMPLEMENTACIÓN LISTA SIMPLE C++:</h1></center><br>
+
+    <pre>
+        <code class="language-c++">
+//--------------------list----------------------//
+
+class List{
+    
+    private: 
+        //Atrubutos de la clase
+        int size; 
+        listNode* head; 	//Referencia a un nodo que será la cabeza
+        listNode* tail; 	//Referencia a un nodo que será la cola
+        
+    public: 
+        //Constructor de la lista vacía
+        List(){
+            
+            head = NULL; 
+            tail = NULL; 
+            size = 0; 
+            
+        }; 
+        
+        //Métodos de la clase
+        
+        //Método para saber si la lista está vacía
+        bool isEmpty(){
+            
+            if(head == 0){
+                
+                //Si la cabeza es nula, se retorna true
+                return true; 
+                
+            }else{
+                
+                return false; 
+                
+            }
+            
+        }
+        
+        //Método para imprimir la lista
+        
+        void listToString(){
+            
+            head -> toString(); 
+            
+        }
+        
+        //Método para obtener la cabeza
+        listNode* getHeadNode(){
+            
+            return head; 
+            
+        }
+        
+        //Método para obtener la cola
+        listNode* getTailNode(){
+            
+            return tail; 
+            
+        }
+        
+        //Método para obtener el objeto almacenado en la cabeza
+        int getHead(){
+            
+            return head -> getObject(); 
+            
+        }
+        
+        //Mëtodo para obtener el objeto almacenado en la cola
+        int getTail(){
+            
+            return tail -> getObject(); 
+            
+        }
+        
+        //Mëtodo para insertar un objeto por la cola
+        void insertTail(int objeto){
+            
+            if(isEmpty() == true){
+                
+                //Si la lista está vacía, la cabeza y la cola serán el nuevo nodo
+                head = new listNode(objeto); 
+                tail = head; 
+                size++; 
+                
+            }else{
+                
+                //Si la lista no está vacía 
+                tail -> enlazarSiguiente(new listNode(objeto));
+                tail = tail -> getNextTo();  
+                size++; 
+                
+            }
+            
+        }
+        
+        //Método para insertar un objeto por la cabeza
+        void insertHead(int objeto){
+            
+            if(isEmpty() == true){
+                
+                //Si la lista está vacía, la cabeza y la cola serán el nuevo nodo
+                head = new listNode(objeto); 
+                tail = head; 
+                size++; 
+                
+            }else{
+                
+                listNode* tempHead = head; 
+                head = new listNode(objeto);
+                head -> enlazarSiguiente(tempHead);
+                
+            }
+            
+        }
+        
+        //Método para remover un objeto de la lista
+        void remove(int objeto){
+            
+            listNode* current; 
+            listNode* before; 
+            
+            current = head; 
+            before = NULL; 
+            
+            bool finded = false; 
+            
+            //Se busca el nodo y el anterior
+            while((current != NULL) && !finded){
+                
+                //Se verifica si ya se encontró el objeto
+                finded = (current -> getObject() == objeto); 
+                
+                //Si no se ha encontrado, se sigue iterando entre los nodos
+                if(!finded){
+                    
+                    before = current; 
+                    current = current -> getNextTo(); 
+                    
+                }
+                
+            }
+            
+            if(current != NULL){
+                
+                //Si se encontró el nodo que contiene el objeto
+                
+                if(current == head){
+                    
+                    //Si el nodo que lo contiene es la cabeza, la nueva cabeza será el segundo nodo
+                    head = current -> getNextTo(); 
+                    
+                }else{
+                    
+                    before -> enlazarSiguiente(current -> getNextTo()); 
+                    
+                }
+                
+                delete current; 
+                
+            }
+            
+            
+        }
+        
+        //Método para añadir un elemento a la lista
+        void add(int objeto){
+            
+            //Se llama el método insertTail
+            insertTail(objeto); 
+            
+        }
+        
+        //Método par obtener el tamaño de la lista
+        int getSize(){
+            
+            return size; 
+            
+        }
+        
+        //Método para anular la lista
+        void clear(){
+            
+            head = NULL; 
+            tail = NULL; 
+            size = 0; 
+            
+        }
+        
+        //Método para buscar un objeto dentro de la lista
+        bool search(int object){
+            
+            //Nodo para recorrer la lista
+            listNode* temp; 
+            
+            //Se recorre la lista
+            for(temp = head; temp != NULL; temp = temp -> getNextTo()){
+                
+                if(temp -> getObject() == object){
+                    
+                    return true; 	//Si se encuentra el objeto se retorna true
+                    break; 			//Se rompe el for para dejar de buscar
+                    
+                }
+                
+            }
+            
+        }
+                
+};
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

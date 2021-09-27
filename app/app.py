@@ -25,6 +25,47 @@ def implementaciones():
 def transformaciones():
     return render_template('transformaciones.html')
 
+#Ruta hacia la página de transformaciones diagrama-código
+@app.route('/diagram_to_code')
+def diagram_to_code():
+    return render_template('diagram_to_code.html')
+
+# --------------------------------------------------------------------------------
+# RUTAS HACIA LAS IMPLEMENTACIONES PYTHON
+# --------------------------------------------------------------------------------
+
+#Ruta hacia la página de la implementación de la lista simplemente enlazada python
+@app.route('/python_listaSimple')
+def python_listaSimple():
+    return render_template('/implementations/python/listaSimple.html')
+
+@app.route('/python_listaSimpleCircular')
+def python_listaSimpleCircular():
+    return render_template('/implementations/python/listaSimpleCircular.html')
+
+@app.route('/python_listaDoble')
+def python_listaDoble():
+    return render_template('/implementations/python/listaDoble.html')
+
+@app.route('/python_listaDobleCircular')
+def python_listaDobleCircular():
+    return render_template('/implementations/python/listaDobleCircular.html')
+
+@app.route('/python_stack')
+def python_stack():
+    return render_template('/implementations/python/stack.html')
+
+@app.route('/python_queue')
+def python_queue():
+    return render_template('/implementations/python/queue.html')
+
+# --------------------------------------------------------------------------------
+# RUTAS HACIA LAS IMPLEMENTACIONES C++
+# --------------------------------------------------------------------------------
+@app.route('/cpp_listaSimple')
+def cpp_listaSimple():
+    return render_template('/implementations/c++/listaSimple.html')
+
 #Ruta hacia la página de transformaciones código-digrama
 @app.route('/code_to_diagram',  methods = ['GET', 'POST'])
 def code_to_diagram():
@@ -110,12 +151,6 @@ def extractGraphInfo(code_tree):
     
     return output_dictionary
     
-
-#Ruta hacia la página de transformaciones diagrama-código
-@app.route('/diagram_to_code')
-def diagram_to_code():
-    return render_template('diagram_to_code.html')
-
 
 if __name__ == "__main__": 
     app.run(debug=True)
