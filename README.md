@@ -45,7 +45,7 @@ LVeED is a WebApplication designed for the people who want learn about data stru
     <img src="https://i.ibb.co/G7PR3yx/CODE-TO-DIAGRAM.png" />
 </td></tr></table>
 
-### CODE TO DIAGRAM(ZOOMED IN)
+### CODE TO DIAGRAM TRANSFORMATION EXAMPLE
 <table><tr><td>
     <img src="https://i.ibb.co/sHFYHvr/CODE-TO-DIAGRAM-ZOOM.png" />
 </td></tr></table>
