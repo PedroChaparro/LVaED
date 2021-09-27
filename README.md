@@ -27,6 +27,12 @@ LVeED is a WebApplication designed for the people who want learn about data stru
     <img src="https://i.ibb.co/XkyfktW/IMPLEMENTATIONS.png" />
 </td></tr></table>
 
+### IMPLEMENTATION EXAMPLE
+
+<table><tr><td>
+    <img src="https://i.ibb.co/RS8NjbK/Implementation-example.png" />
+</td></tr></table>
+
 ### TRANSFORMATIONS PAGE
 
 <table><tr><td>
