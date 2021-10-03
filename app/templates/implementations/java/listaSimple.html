@@ -1,0 +1,1046 @@
+{% extends '././layout.html' %}
+
+{% block title %}Simple Linked List JAVA{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN NODO LISTA SIMPLE JAVA:</h1></center><br>
+
+    <pre>
+        <code class="language-java">
+package listaSimple;
+
+public class ListNode {
+
+    //Elementos de cada nodo
+
+    private Object object;      //Objeto
+    public ListNode next;       //Referencia (puntero) al siguiente nodo --> Dirección para ir al siguiente
+
+    //Constructores del objeto:
+
+        //Totalmente nulo
+
+    public ListNode() {
+        this.object = null;
+        this.next = null;
+    }
+
+        //Entregando lo que se va a almacenar
+
+    public ListNode(Object object) {
+        this.object = object;
+        this.next = null; 
+    }
+
+        //Entregando lo que se va a almacenar y a quién se va a enlazar (Siguiente nodo)
+
+    public ListNode(Object object, ListNode next) {
+        this.object = object;
+        this.next = next;
+    }
+
+    //Método para enlazar a un siguiente nodo
+
+    public void enlazarSiguiente(ListNode next){
+
+        this.next = next; 
+
+    }
+
+
+    //Mëtodo para obtener el siguiente nodo
+
+    public ListNode getNextTo(){
+
+        return this.next; 
+
+    }
+
+    //Obtener el objeto almacenado
+
+    public Object getObject() {
+        return object;
+    }
+
+    //Cambiar el objeto almacenado
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    //Método para saber si dos nodos almacenan el mismo objeto 
+    //Recibiendo como entrada el objeto a comparar
+
+    public boolean isEquals(Object object) {
+        if (this.getObject().toString().equals(object.toString())) {
+            return true;
+        }
+        return false;
+    }
+
+    //Método para saber si dos nodos almacenan el mismo objeto
+    //Recibiendo como entrada el nodo a comparar
+
+    public boolean isEquals(ListNode node) {
+        if (this.toString().equals(node.toString())) {
+            return true;
+        }
+        return false;
+    }
+
+    //Convertir todos los componentes del nodo a String
+
+    @Override
+    public String toString(){
+        
+        return "ListNode{" +
+                "object=" + object +
+                ", next=" + next +
+                '}';
+    
+        
+    }
+    
+    //Método para mostrar la información de un solo nodo
+    
+    public String ShowInformation(){
+    
+        return "ListNode{" +
+                "object: " + object + 
+                ", next object: " + this.next.getObject() + 
+                "}";
+        
+    }
+    
+}
+        </code>
+    </pre>
+
+    <br><center><h1>IMPLEMENTACIÓN LISTA SIMPLE JAVA:</h1></center><br>
+
+    <pre>
+        <code class="language-java">
+package listaSimple;
+
+import java.util.Iterator;
+
+import static java.lang.System.*;
+
+public class List implements ListInterface, Iterable<ListNode> {
+
+    private ListNode inode;
+    private int size;
+
+    //Referencia al inicio y el final de la lista 
+    //Inicialmente existen, pero no almacenan ni hacen referencia a nada
+
+    public ListNode head;
+    public ListNode tail;
+
+    /**
+    * List
+    */
+
+
+    //Instancia de una lista vacía
+
+    public List() {
+        //Se llama el método clear para crear una lista con head y tail = null y size = 0
+        clear();
+    }
+
+    /*
+    ok
+    */
+    
+    //Crear la lista sabiendo cuál es el primer elemento
+
+    public boolean List(Object object) {
+
+        //Si el objeto no es nulo, se agrega por la cola
+
+        if(object != null){
+
+            add(object);
+        
+            return true; 
+
+        }else{
+
+            return false;
+
+        }
+        
+    }
+
+    /*
+    TESTED 
+    */
+    
+    public boolean isEmpty() {
+        //Si el puntero de la cabeza es null, la lista está vacía
+        return head == null;
+    }
+
+    /*
+    TESTED
+    */
+    
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    /*
+    TESTED
+    */
+
+    //El método clear hace que la cabeza y la cola sean nulas
+    //Una vez sean nulas, el recolector de basura elimina la lista completa
+
+    @Override
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    /*
+    TESTED
+    */
+    
+    //Mëtodo para objetner el objeto almacenado en el nodo cabeza
+    
+    @Override
+    public Object getHead() {
+        return head;
+    }
+    
+//Mëtodo para objetner el nodo cabeza (completo)
+    
+    public ListNode getNodeHead(){
+    
+        return head; 
+        
+    }
+
+    /*
+    TESTED
+    */
+    @Override
+    public Object getTail() {
+        return tail;
+    }
+    
+    /*
+    TESTED
+    */
+    
+    //Método para objetner el nodo cabeza (completo)
+    
+    public ListNode getNodeTail(){
+    
+        return tail; 
+        
+    }
+
+    /*
+    TESTED
+    */
+
+    //Método para buscar un objeto dentro de todos los nodos
+
+    @Override
+    public ListNode search(Object object) {
+        Iterator< ListNode > i = this.iterator();
+        ListNode inode;
+        ListNode salida = null; 
+
+        //Mientras que el nodo exista
+        while ((inode = i.next()) != null) {
+            //Si el objeto almacenado en el nodo es igual al objeto buscado, se devuelve el nodo que contiene el objeto
+            if (inode.getObject().toString().equals(object.toString())) {
+                salida = inode; 
+                break; 
+            }
+        }
+        return salida;
+    }
+
+    //Método (Propio) para buscar un nodo 
+    
+    /*
+    TESTED
+    */
+
+    public ListNode searchNode(ListNode searchThis){
+
+        ListNode retorno = new ListNode();
+        retorno = null; 
+        
+        ListNode temp = new ListNode(); 
+        temp = head; 
+    
+        
+        while(temp != null){
+        
+            if(temp.getObject().toString().equals(searchThis.getObject().toString())){
+            
+                //Si los objetos son iguales
+                retorno = temp;  
+                
+                break; 
+                
+            }else{
+            
+                temp = temp.next; 
+            
+            }
+            
+        }
+        
+        return retorno; 
+
+    }
+
+    //Método para agregar un elemento
+    //Se llama al método agregar en la cola
+
+    /*
+    TESTED
+    */
+    
+    @Override
+    public boolean add(Object object) {
+        if(object != null){
+
+            //Si el objeto no es null, se agrega por la cola
+            return insertTail(object);
+
+        }else{
+
+            //Si el objeto es null se retorna false
+            return false; 
+
+        }
+    }
+
+    /*
+    TESTED
+    */
+    
+    //Método para insertar un objeto después de un nodo específico
+    
+    @Override
+    public boolean insert(ListNode node, Object object) {
+        try {
+            if (node.next == null) {
+                //Si el siguiente nodo al nodo ingresado es null es porque el nodo ingresado es la cola
+                
+                //Se llama al método add par agregar el nuevo objeto después de la cola
+                add(object);
+            } else {
+                //Si el siguiente nodo no es null
+
+                //Se crea un nuevo nodo
+                ListNode newNode = new ListNode(object);
+                // a-b-c insert(b, objetc) ---> a-b-newNode-c
+                newNode.next = node.next;
+                node.next = newNode;
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /*
+    TESTED
+    */
+    
+    //Método para insertar un objeto después de otro
+
+    @Override
+    public boolean insert(Object ob, Object object) {
+        
+        boolean retorno = false; 
+        
+        try{
+            
+            if(ob != null){
+        
+                ListNode node = this.search(ob);
+                
+                if(node != null){
+                    
+                    return insert(node,object);
+                
+                }else{
+                
+                    return false; 
+                    
+                }
+            
+            }
+            
+            return retorno; 
+            
+        }catch(Exception e){
+            
+            return false; 
+        }
+    
+    }
+
+    /*
+    TESTED
+    */
+
+    //Método para agregar un elemento por la cabeza
+
+    @Override
+    public boolean insertHead(Object object) {
+        try {
+            if (isEmpty()) {
+
+                //Si la lista está vacía
+
+                head = new ListNode(object);
+                tail = head;    //Como solo hay un elemento, a la cola se le asigna el mismo valor que a la cola
+            } else {
+                //Se crea la nueva cabeza
+                ListNode newHead = new ListNode(object); 
+                //El siguiente elemento va a ser la anterior cabeza
+                newHead.next = head; 
+                //La cabeza será el nuevo nodo
+                head = newHead; 
+            }
+            this.size++;
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /*
+    TESTED
+    */
+
+    //Método para agregar un elemento a la cola
+    
+    @Override
+    public boolean insertTail(Object object) {
+        try {
+            if (isEmpty()) {
+
+                //Si la cabeza es nula, se crea un nodo
+
+                head = new ListNode(object);
+                tail = head;    //Como solo hay un elemento, a la cola se le asigna el mismo valor que la cola
+            } else {
+
+                //Se crea un nodo, y dentro de ese nodo se guarda el objeto 
+                ListNode newTail = new ListNode(object);
+                //El siguiente elemento a la anterior cola va a ser el nuevo nodo
+                tail.next = newTail; 
+                //El valor "cola" es tomado por el nuevo nodo
+                tail = newTail;  
+            }
+
+            //Si el elemento fue almacenado, se suma 1 al tamaño de la lista y se retorna true
+
+            this.size++;
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /*
+    TESTED
+    */
+
+    //Método para eliminar un nodo
+
+    @Override
+    public boolean remove(ListNode node) {
+        
+        boolean retorno = false; 
+        
+        ListNode temp = new ListNode(); 
+        temp = head; 
+        
+        ListNode tempAnterior = new ListNode(); 
+        tempAnterior = null; 
+        
+        for(int i=0; i< size-1; i++){
+        
+            if(temp.getObject().toString().equals(node.getObject().toString())){
+            
+                if(temp == head){
+                
+                    head = head.next; 
+                    retorno = true; 
+                    break; 
+                    
+                }else{
+                
+                    tempAnterior.next = temp.next; 
+                    retorno = true;
+                    break;
+                    
+                }
+            
+            }
+            
+            tempAnterior = temp; 
+            temp = temp.next; 
+        
+        }
+        
+        return retorno; 
+        
+    }
+
+    //Método para eliminar un objeto de la lista
+
+    /*
+    TESTED
+    */
+    
+    @Override
+    public boolean remove(Object object) {
+
+        boolean retorno = false; 
+        
+        ListNode tempActual = new ListNode();
+        tempActual = this.head; 
+        
+        while(tempActual != null){
+            
+            if(tempActual.getObject().toString().equals(object.toString())){
+            
+                tempActual.setObject(null);
+                retorno = true; 
+                
+            }
+            
+            tempActual = tempActual.next; 
+        
+        }
+        
+        
+        return retorno; 
+        
+    }
+
+    /*
+    TESTED
+    */
+
+    //Método para saber is la lista contiente un elemento
+
+    @Override
+    public boolean contains(Object object) {
+        //Se llama al método search, el que se encargará de iterar la lista y buscar el objeto
+        ListNode resultado = search(object); 
+
+        if(resultado != null){
+
+            return true;
+
+        }else{
+
+            //Si search(object) retorna null es porque el objeto no fue encontrado en ningún nodo
+            return false; 
+
+        }
+    }
+
+    
+    /*
+    TESTED
+    */
+
+    public Object[] toArray() {
+
+        int listSize = this.size; 
+        Object[] arrayList = new Object [listSize];    //Se crea un array que permita almacenar todos los objetos de la lista
+
+        ListNode tempNode = head; 
+
+        for(int i = 0; i< listSize; i++){
+
+            Object objectTempNode = tempNode.getObject();   //Se obtiene el objeto del siguiente nodo
+            arrayList[i] = objectTempNode;                  //Se agrega al Array
+            
+            tempNode = getNextTo(tempNode);                 //Se obtiene el siguiente nodo
+
+        }
+
+        return arrayList; 
+    }
+
+
+    
+    @Override
+    public Object[] toArray(Object[] object) {
+        return new Object[0];
+    }
+    
+    /*
+    TESTED
+    */
+    
+    //Si el método getBeforeTo() no recibe ningún nodo, se retorna null
+
+    @Override
+    public Object getBeforeTo(){
+    
+        return null; 
+        
+    }
+    
+    /*
+    TESTED
+    */
+    
+    //Método para retornar el nodo anterior a otro nodo
+    
+    @Override
+    public ListNode getBeforeTo(ListNode node) {
+        
+    ListNode retorno = new ListNode();  
+    retorno = null; 
+    
+    ListNode temp = new ListNode(); 
+    temp = head; 
+    
+    ListNode tempAnterior = new ListNode(); 
+    tempAnterior = null; 
+    
+    for(int i=0; i< size-1; i++){
+    
+        if(temp.getObject().toString().equals(node.getObject().toString())){
+        
+            if(temp == head){
+            
+                //No existe un nodo anterior a la cabeza
+                retorno = null;
+                break; 
+            
+            }else{
+            
+                retorno = tempAnterior; 
+                break; 
+            
+            }
+        
+        }
+        
+        tempAnterior = temp; 
+        temp = temp.next; 
+    
+    }
+    
+    return retorno; 
+    
+    }
+    
+    //Método para obtener el objeto anterior a un objeto dado
+    
+    /*
+    TESTED
+    */
+    
+    public Object getBeforeObjectTo(Object obtainBeforeTo){
+        
+        Object salida = new Object(); 
+        salida = null; 
+        
+    //Iterar la lista en busca del objeto
+        
+        ListNode temp = new ListNode(); 
+        temp = head; 
+        ListNode beforeTemp = new ListNode(); 
+        beforeTemp = null; 
+        
+        for(int i=0; i< size-1; i++){
+        
+            if(temp.getObject().toString().equals(obtainBeforeTo.toString())){
+                
+                if(beforeTemp != null){
+                
+                    salida = beforeTemp.getObject(); 
+                    
+                }
+                
+                break; 
+            
+            }
+            
+            beforeTemp = temp; 
+            temp = temp.next; 
+        
+        }
+        
+        return salida; 
+    
+    }
+
+    /*
+    TESTED
+    */
+    
+    //Si el método getNextTo() no recibe ningún nodo, se retorna null
+    
+    @Override
+    public Object getNextTo() {
+        return null;
+    }
+
+    /*
+    TESTED
+    */
+    
+    @Override
+    public ListNode getNextTo(ListNode node) {
+
+        //Se retorna el apuntador (atrubuto del nodo)
+        return node.next;
+
+    }
+    
+    /*
+    TESTED
+    */
+    
+    //Método para obtener el objeto siguiente a otro objeto
+    
+    public Object getNextObjectTo(Object obtainNextTo){
+    
+        Object salida = new Object();
+        salida = null; 
+        
+        //Iterar la lista en busca del objeto
+        
+        ListNode temp = new ListNode(); 
+        temp = head; 
+        
+        for(int i=0; i< size-1; i++){
+        
+            if(temp.getObject().toString().equals(obtainNextTo.toString())){
+                
+                salida = temp.next.getObject(); 
+                break; 
+            
+            }
+            
+            temp = temp.next; 
+        
+        }
+        
+        return salida; 
+    
+    }
+    
+    //Método para agregar un nuevo nodo después de la cola
+    
+    /*
+    TESTED
+    */
+
+    public boolean insertNodeTail(ListNode insertThisNode){
+
+        try{
+
+            if(isEmpty()){
+
+                //Si la cabeza es nula, la cabeza va a ser el nuevo nodo
+
+                head = insertThisNode; 
+                tail = head; 
+
+            }else{
+
+                tail.next = insertThisNode;     //El nodo siguiente a la anterior tail va a ser el nuevo nodo
+                tail = insertThisNode;          //El valor "cola" va a ser tomado por el nuevo nodo
+
+            }
+
+            this.size++;
+            return true; 
+
+        }catch(Exception e){
+
+            return false; 
+
+        }
+
+    }
+    
+    /*
+    TESTED
+    */
+
+
+    //Método para crear una sublista a partir de la lista
+
+    @Override
+    public List subList(ListNode from, ListNode to) {
+        
+        List subList = new List(); 
+        
+        if(from != null && to != null){
+        
+            ListNode temp = new ListNode();
+            temp = from; 
+            
+            subList.insertNodeTail(temp);
+            
+            temp = temp.next; 
+            
+            while(temp != null && temp != to){
+            
+                subList.insertNodeTail(temp);
+                temp = temp.next; 
+            
+            }
+            
+            subList.getNodeTail().next = null; 
+            
+            return subList; 
+        
+        }else{
+        
+            return null; 
+        
+        }
+        
+    }
+
+    
+    //Método para ordenar la lista
+    
+    /*
+    TESTED
+    */
+    
+    @Override
+    public List sortList() {
+        
+        //Lista ordenada
+        
+        List sortedList = new List(); 
+        
+        //Variable para recorrer la lista desordenada
+        
+        ListNode temp = new ListNode();
+        temp = this.head; 
+        
+        //Variable para recorrer la lista ordenada
+        
+        ListNode current = new ListNode(); 
+        
+        ListNode tempAux = new ListNode(temp.getObject());
+        sortedList.insertNodeTail(tempAux);
+        
+        temp = temp.next; 
+    
+    //Se recorre la lista DESORDENADA
+    
+    boolean yesNo = false; 
+    
+    for(int i=0; i< this.getSize()-1; i++){
+        
+        yesNo = false; 
+        current = sortedList.head; 
+    
+        for(int j=0; j< sortedList.getSize(); j++){
+        
+            int comparar = temp.getObject().toString().compareTo(current.getObject().toString()); 
+            
+            if(comparar < 0){
+            
+                ListNode aux = new ListNode(temp.getObject()); 
+                sortedList.insertNodeBefore(current, aux);
+                yesNo = true; 
+                break;
+            
+            }
+            
+            current = current.next; 
+        
+        }
+        
+        if(yesNo == false){
+        
+            sortedList.insertNodeTail(temp);
+            
+        }
+        
+        temp = temp.next; 
+        
+    }
+    
+        sortedList.tail.next = null; 
+        return sortedList; 
+        
+    }
+    
+    //Método para insertar un nodo después de otro
+    
+    /*
+    TESTED
+    */
+    
+    public void insertNodeAfter(ListNode afterThis, ListNode thisNode){
+        
+        //Variables para recorrer la lista
+        
+        ListNode temp = new ListNode(); 
+        temp = this.head; 
+        
+        for(int i=0; i< this.size; i++){
+        
+            if(temp.getObject().toString().equals(afterThis.getObject().toString())){
+            
+                ListNode nextTo = new ListNode(); 
+                nextTo = afterThis.next; 
+                
+                afterThis.next = thisNode; 
+                thisNode.next = nextTo; 
+                
+                this.size++; 
+                break; 
+                
+            }
+        
+            temp = temp.next; 
+            
+        }
+        
+    }
+    
+    //Método para insertar un nodo antes de otro
+    
+    /*
+    TESTED
+    */
+    
+    public void insertNodeBefore(ListNode beforeThis, ListNode thisNode){
+    
+        //variables para recorrer la lista
+        
+        ListNode temp = new ListNode();
+        temp = this.head; 
+        
+        ListNode beforeTemp = new ListNode(); 
+        beforeTemp = null; 
+        
+        for(int i=0; i< this.size; i++){
+        
+            if(temp.getObject().toString().equals(beforeThis.getObject().toString())){
+            
+                //Si hay que insertar antes de la cabeza
+                
+                if(temp == this.head){
+            
+                    this.head = thisNode; 
+                    this.head.next = temp; 
+                    this.size++;
+                    break; 
+                
+                }else{
+                    
+                    //si hay que insertar antes de un nodo diferente a la cabeza
+                    
+                    beforeTemp.next = thisNode; 
+                    thisNode.next = temp; 
+                    this.size++;
+                    break; 
+                    
+                
+                }
+            
+            }
+            
+            beforeTemp = temp; 
+            temp = temp.next; 
+        
+        }
+    
+    }
+
+    @Override
+    public Iterator< ListNode > iterator() {
+        inode = head;
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return inode.next != null;
+            }
+
+            @Override
+            public ListNode next() {
+                if (inode != null) {
+                    ListNode tmp = inode;
+                    inode = inode.next;
+                    return tmp;
+                } else {
+                    return null;
+                }
+            }
+        };
+    }
+
+    //Método para recoorer la lista e imprimir en contenido de cada nodo
+    
+    /*
+    TESTED
+    */
+
+    public void rec(ListNode node) {
+        if (node.next != null) {
+            rec(node.next);
+            // <- ;) ->
+        }
+        out.println(node.toString());
+    }
+    
+    //Método para imprimir la lista
+    
+    /*
+    TESTED
+    */
+    
+    public void listToString(){
+    
+        ListNode temp = head; 
+        int contador = 0;
+        
+        for(int i=0; i< 1; i++){
+        
+            System.out.println(temp.toString());
+            contador++;
+            
+        }
+        
+    }
+    
+
+}
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

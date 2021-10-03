@@ -27,7 +27,7 @@
                 <p class="card-text"></p>
 
                 <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
-                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'simple_linked_list java' )}}" target="_blank"><button class="btn btn-primary" id="btn_java" type="button">JAVA</button></a>
                 <a href="{{ url_for('concrete_implementation', concrete_implementation = 'simple_linked_list python' )}}" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
                 <a href="{{ url_for('concrete_implementation', concrete_implementation = 'simple_linked_list cpp' )}}" target="_blank"><button class="btn btn-primary" id="btn_cpp" type="button">C++</button></a>
             </div>
@@ -41,7 +41,7 @@
                 <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
                 <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
                 <a href="{{ url_for('concrete_implementation', concrete_implementation = 'simple_circular_linked_list python' )}}" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
-                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'simple_circular_linked_list cpp' )}}" target="_blank"> <button class="btn btn-primary" id="btn_cpp" type="button">C++</button></a>
             </div>
         </div>
 
@@ -53,7 +53,7 @@
                 <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
                 <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
                 <a href="{{ url_for('concrete_implementation', concrete_implementation = 'double_linked_list python' )}}" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
-                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'double_linked_list cpp' )}}" target="_blank"><button class="btn btn-primary" id="btn_cpp" type="button">C++</button></a>
             </div>
         </div>
 
@@ -70,7 +70,7 @@
                 <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
                 <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
                 <a href="{{ url_for('concrete_implementation', concrete_implementation = 'double_circular_linked_list python' )}}" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
-                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'double_circular_linked_list cpp' )}}" target="_blank"><button class="btn btn-primary" id="btn_cpp" type="button">C++</button></a>
             </div>
         </div>
 
@@ -80,9 +80,9 @@
                 <p class="card-text"></p>
 
                 <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
-                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'stack java' )}}" target="_blank"><button class="btn btn-primary" id="btn_java" type="button">JAVA</button></a>
                 <a href="{{ url_for('concrete_implementation', concrete_implementation = 'stack python' )}}" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
-                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'stack cpp' )}}" target="_blank"><button class="btn btn-primary" id="btn_cpp" type="button">C++</button></a>
             </div>
         </div>
 
@@ -92,9 +92,9 @@
                 <p class="card-text"></p>
 
                 <!--  BOTONES PARA ACCEDER A LA IMPLEMENTACIÓN DE LA ESTRUCTURA  -->
-                <button class="btn btn-primary" id="btn_java" type="button">JAVA</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'queue java' )}}" target="_blank"><button class="btn btn-primary" id="btn_java" type="button">JAVA</button></a>
                 <a href="{{ url_for('concrete_implementation', concrete_implementation = 'queue python' )}}" target="_blank"><button class="btn btn-primary" id="btn_python" type="button">PYTHON</button></a>
-                <button class="btn btn-primary" id="btn_cpp" type="button">C++</button>
+                <a href="{{ url_for('concrete_implementation', concrete_implementation = 'queue cpp' )}}" target="_blank"><button class="btn btn-primary" id="btn_cpp" type="button">C++</button></a>
             </div>
         </div>
 

@@ -1,0 +1,407 @@
+{% extends '././layout.html' %}
+
+{% block title %}STACK JAVA{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN NODO DE LA PILA (STACK) JAVA:</h1></center><br>
+
+    <pre>
+        <code class="language-java">
+package pila_list;
+
+/**
+    *
+    * @author pedro
+    */
+public class pila_Node {
+    
+    // ------ Atributos de cada nodo de la pila -----
+    private Object object;      //Objeto almacenado
+    private pila_Node next;     //Nodo siguiente de la pila (Hacia abajo)
+    
+    // ----- Constructores del nodo -----
+    
+    //Constructor de nodo vacío
+    public pila_Node(){
+        
+        this.object = null; 
+        this.next = null; 
+        
+    }
+    
+    //Constructor de un nodo dando el objeto a almacenar
+    public pila_Node(Object object){
+        
+        this.object = object; 
+        this.next = null; 
+        
+    }
+    
+    //Constructor de un nodo completo
+    public pila_Node(Object object, pila_Node next){
+        
+        this.object = object; 
+        this.next = next; 
+        
+    }
+    
+    // ----- Métodos de cada nodo de la pila -----
+    
+    //Método para enlazar a un siguiente nodo
+    public void enlazarSiguiente(pila_Node next){
+        
+        this.next = next; 
+        
+    }
+    
+    //Método para obtener el siguiente nodo
+    public pila_Node getNextTo(){
+        
+        return this.next;
+        
+    }
+    
+    //Mëtodo para almacenar un objeto en el nodo
+    public void setObject(Object object){
+        
+        this.object = object; 
+        
+    }
+    
+    //Método para obtener el objeto almacenado por el nodo de la pila
+    public Object getObject(){
+        
+        return this.object; 
+        
+    }
+    
+    //Método para imprimir la secuencia de nodos
+    public String toString(){
+        
+        return "Stack Node{ " + 
+                "Object: " + this.object +
+                " Next Stack Node: { " + this.next + 
+                "} "; 
+        
+    }
+    
+    
+}
+        </code>
+    </pre>
+
+    <br><center><h1>IMPLEMENTACIÓN PILA (STACK) JAVA:</h1></center><br>
+
+    <pre>
+        <code class="language-java">
+package pila_list;
+//Se importan los subpaquetes de la lista simple y la lista doble
+import pila_list.double_list.*;     //Subpaquete lista doblemente enlazada
+import pila_list.simple_list.*;     //Subpaquete lista simplemente enlazada
+/**
+    *
+    * @author pedro
+    */
+public class pila implements StackInterface {
+    
+    //------ Atritubos de la pila -----
+    private pila_Node top; 
+    private int size; 
+    
+    //----- Constructores de la pila -----
+    
+    //Constructor de una pila vacía
+    public pila(){
+        
+        this.top = null; 
+        this.size = 0; 
+        
+    }
+    
+    //Constructor de una pila con top y size
+    public pila(pila_Node first){
+        
+        this.top = first; 
+        this.size = 1; 
+        
+    }
+    
+    // ----- Métodos de la pila ----- 
+    
+    @Override
+    public void clear(){
+        
+        //Se hace nula la cima de la pila, por lo cual, no habría enlace a los siguientes nodos
+        this.top = null; 
+        this.size = 0; 
+        
+    }
+    
+    @Override
+    public boolean isEmpty(){
+        
+        if(this.top != null){
+            
+            //Si existe la cima de la pila, entonces no es nula
+            return false; 
+            
+        }else{
+            
+            //Si no existe la cima de la pila, es nula
+            return true; 
+            
+        }
+        
+    }
+    
+    @Override
+    public Object peek(){
+        
+        //Se retorna el objeto almacenado en el útlimo nodo ingresado a la pila
+        return this.top.getObject(); 
+        
+    }
+    
+    @Override
+    public Object pop(){
+        
+        if(this.top != null){
+            
+            //Se guarda el objeto guardado en la cima de la pila
+            Object retorno = this.top.getObject(); 
+            //Se elimina la cima, hacienod que la nueva cima sea el nodo siguiente a la anterior cima
+            this.top = this.top.getNextTo(); 
+            //Se reduce el size
+            this.size--; 
+            
+            //Se retorna el objeto 
+            return retorno; 
+            
+            
+        }else{
+            
+            return null; 
+            
+        }
+        
+    }
+    
+    @Override
+    public boolean push(Object object){
+        
+        boolean retorno = false; 
+        
+        if(object != null){
+            
+            //Si el objeto no es nulo, se intenta agregar a la pila
+            try{
+                if(this.top == null){
+
+                    //Si la pila está vacía
+                    pila_Node nuevaCima = new pila_Node(object);    //Se crea un nodo para almacenar el objeto
+                    this.top = nuevaCima;   //El nodo creado será la cima de la pila
+                    this.size++;    //Se aumenta el size
+                    retorno = true; 
+
+                }else{
+
+                    //Si la pila no está vacía
+                    pila_Node nuevoNodo = new pila_Node(object);    //Se crea un nodo para almacenar el objeto
+                    nuevoNodo.enlazarSiguiente(top);    //El siguiente nodo al nuevo nodo será la anterior cima
+                    this.top = nuevoNodo;   //El valor de cima es tomado por el nuevo nodo
+                    this.size++;    //Se aumenta el size
+                    retorno = true; 
+
+                }  
+            }catch(Exception e){
+                
+                retorno = false; 
+                
+            }
+            
+        }
+        
+        return retorno; 
+        
+    }
+    
+    @Override
+    public int size(){
+        
+        //Se retorna el atributo size de la pila
+        return this.size; 
+        
+    }
+    
+    @Override
+    public boolean search(Object object){
+    
+        //Objeto para "recorrer" la pila
+        Object current = null; 
+        
+        //Retorno
+        boolean retorno = false; 
+        
+        //Pila en la que se almacenan los objetos a los que se les hizo pop() de manera temporal
+        pila temp = new pila(); 
+        
+        //Variable que almacena el size original de la pila
+        int originalSize = this.size; 
+        
+        for(int i=0; i< originalSize; i++){
+        
+            //Se recorre la lista haciendo pop() en busca del objeto
+            current = this.pop(); 
+            //Se guarda el objeto al que se le hizo pop en la pila temporal
+            temp.push(current); 
+            
+            //Se compara si el objeto es igual al buscado
+            if(current.toString().equals(object.toString())){
+                
+                //Si los objetos son iguales, el retorno es true
+                retorno = true; 
+                //Se rompe el for
+                break; 
+                
+            }
+        
+        }
+        
+        //Se recorre la pila temporal para regresar los objetos a los que se les hizo pop() a la pila original
+        
+        //Variable que almacena el size original de la pila temporal
+        int tempOriginalSize = temp.size; 
+        
+        for(int j=0; j< tempOriginalSize; j++){
+            
+            //Se añade el objeto de la cima
+            this.push(temp.top.getObject()); 
+            //Se elimina el objeto de la cima de temp
+            temp.pop(); 
+            
+        }
+        
+        return retorno; 
+        
+    }
+    
+    @Override
+    public void sort(){
+        
+        // --- 1)Se guardan los objetos de la pila en una lista simplemente enlazada
+        
+        //Creación de la lista
+        List pilaObjects = new List(); 
+        
+        //Size original de la pila
+        int pilaSize = this.size; 
+        
+        for(int i=0; i< pilaSize; i++){
+            
+            pilaObjects.add(this.pop()); //Se añaden los objetos de la pila, comenzando por la cabeza
+            
+        }
+        
+        // --- 2) Se ordena la lista anterior usando el método SortList() de la lista
+        
+        pilaObjects = pilaObjects.sortList(); 
+        
+        // --- 3) Se pasan los elemenos ordenados a una lista doblemente enlazada
+        
+        list dobleEnlazada = new list(); 
+        
+        //Se recorre la lista simplemente enlazada
+        
+        //Nodo para recorrer la lista
+        ListNode temp = new ListNode(); 
+        temp = pilaObjects.head; 
+        
+        for(int j=0; j< pilaObjects.getSize(); j++){
+            
+            dobleEnlazada.add(temp.getObject());
+            temp = temp.next; 
+            
+        }
+        
+        // --- 4) Se añaden los elementos de la lista doblemente enlazada comenzando por la cola a la pila
+        
+        //Se recorre la lista doblemente enlazada
+        
+        //Nodo para recorrer la lista
+        listNode temp2 = new listNode(); 
+        temp2 = dobleEnlazada.getTail(); 
+        
+        for(int k=0; k< dobleEnlazada.getZise(); k++){
+            
+            this.push(temp2.getObject()); 
+            temp2 = temp2.getBeforeTo(); 
+            
+        }
+        
+
+    }
+    
+    @Override
+    public void reverse(){
+        
+        //Se crea una lista simplemente enlazada para almacenar los objetos de la pila
+        List tempSimpleList = new List(); 
+        
+        //Variable que almacena el size original de la pila
+        int originalSize = this.size; 
+        
+        for(int i=0; i< originalSize; i++){
+            
+            //Se hace pop al elemento cima de la pila y se almacena en la lista simplemente enlazada
+            tempSimpleList.add(this.pop());
+            
+        }
+        
+        //Se añaden los elementos de la lista simplemente enlazada a la pila, comenzando por la cola
+        
+        //Nodeo para recorrer la lista simplemente enlazada
+        ListNode temp = new ListNode(); 
+        temp = tempSimpleList.head;  
+        
+        for(int j=0; j< tempSimpleList.getSize(); j++){
+            
+            //Se añade el objeto de la lista, comenzando por la cola
+            this.push(temp.getObject()); 
+            //Se sigue iterando
+            temp = temp.getNextTo(); 
+            
+        }
+        
+    }
+    
+    @Override
+    public String toString(){
+        
+        if(this.top != null){
+            
+            return this.top.toString(); 
+            
+        }else{
+            
+            return "null"; 
+            
+        }
+        
+    }
+    
+    
+}
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

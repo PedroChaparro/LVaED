@@ -1,0 +1,282 @@
+{% extends '././layout.html' %}
+
+{% block title %}STACK CPP{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN NODO DE LA PILA (STACK) C++:</h1></center><br>
+
+    <pre>
+        <code class="language-cpp">
+//--------------------node----------------------//
+
+class node{
+    
+    private: 
+        //Atributos de la clase
+        int object; 
+        node* next; 	//Siguiente nodo en la pila
+        
+    public: 
+        //Constructores de la clase
+        node(); 
+        node(int objeto); 
+        node(int objeto, node* siguiente); 
+        
+        //Método para asignar un nodo siguiente
+        void enlazarSiguiente(node* siguiente){
+            
+            next = siguiente; 
+            
+        }; 
+        
+        //Método para asignar un objeto al nodo
+        
+        void setObject(int objeto){
+            
+            object = objeto; 
+            
+        }
+        
+        //Método para obtener la dirección del nodo siguiente
+        node* getNextTo(){
+            
+            return next; 
+            
+        }; 
+        
+        //Método par obtener el objeto guardado por un nodo
+        int getObject(){
+            
+            return object; 
+            
+        }
+        
+        //Método para imprimir la información de todos los nodos existentes
+        
+        void toString(){
+        
+            cout << "ListNode: \n";
+            cout << "OBJETO ALMACENADO: ";
+            cout << object; 
+            cout << "\n"; 
+            cout << "\nSIGUIENTE NODO --> \n\n";
+            
+            if(getNextTo() != 0 ){
+                
+                //Si el siguiente nodo existe
+                getNextTo() -> toString(); 
+                
+            }else{
+                
+                cout << "NULL\n\n"; 
+                
+            }
+            
+        }
+    
+};
+
+//Implementación de la clase listNode
+
+//Constructor de un nodo vacío
+node::node(){
+    
+    object = 0; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 		//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo pasando el objeto a almacenar
+node::node(int objeto){
+    
+    object = objeto; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 			//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo completo, paasando el objeto y el puntero al siguiente
+node::node(int objeto, node* siguiente){
+    
+    object = objeto; 
+    next = siguiente; 
+    
+} 
+        </code>
+    </pre>
+
+    <br><center><h1>IMPLEMENTACIÓN PILA (STACK) C++:</h1></center><br>
+
+    <pre>
+        <code class="language-c++">
+class stack{
+
+    private: 
+        //Atributos de la clase
+        int size; 
+        node* top; 	//Siguiente nodo en la pila
+        
+    public: 
+        
+        //Constructor de la lista vacía
+        stack(){
+            
+            top = NULL; 
+            size = 0; 
+            
+        }; 
+        
+        //Métodos de la clase
+        
+        //Método para anular la lista
+        void clear(){
+            
+            top = NULL; 
+            size = 0; 
+            
+        }; 
+        
+        //Método par saber si la pila está vacía
+        bool isEmpty(){
+            
+            if(top != NULL){
+                    
+                return false; 	//Si la cabeza no es nula, la cola no es vacía, ser retorna false
+                
+            }else{
+                
+                return true; 
+                
+            }
+            
+        }; 
+        
+        //Método para retornar el objeto del top sin eliminarlo de la pila
+        int peek(){
+                
+            //Se retorna el objeto almacenado en el top de la pila sin eliminarlo
+            return top -> getObject(); 
+            
+        }; 
+        
+        //Método para retornar el objeto de top eliminandolo de la pila
+        int pop(){
+            
+            if(top != NULL){
+                
+                int retorno = top -> getObject(); 	//Se guarda el objeto del top
+                top = top -> getNextTo(); 	//El top será el siguiente de top
+                size = size-1; 	//Se reduce el size
+                
+                return retorno; 
+                
+            }
+            
+        }; 
+        
+        //Método para añadir un objeto a la pila
+        void push(int o){
+            
+            if(top == NULL){
+                
+                //Si la pila está vacía, el objeto se añade como el nuevo top
+                node* temp = new node(o);
+                top = temp; 
+                size++; 			 
+                
+            }else{
+                
+                //Si la pila no está vacía, se desplazan todos una posición y toma el valor de top
+                node* temp = new node(o); 
+                temp -> enlazarSiguiente(top); 
+                top = temp; 
+                size++; 
+                
+            }
+            
+        }; 
+        
+        //Método para retornar el size de la pila
+        int getSize(){
+            
+            return size; 
+            
+        }; 
+        
+        //Método para buscar un objeto en la pila
+        bool search(int o){
+            
+            //Objeto para recorrer la pila
+            int temp; 
+            
+            //Variable de retorno 
+            bool retorno = false; 	//Falso por defecto
+            
+            //Pila temporal para almacenar los objetos a los que se les hace pop()
+            stack* tempStack = new stack(); 
+            
+            //Variable que almacena el size original de la pila
+            int stackOriginalSize = size; 
+            
+            for(int i=0; i<stackOriginalSize; i++){
+                
+                //Se recorre la lista haciendo pop() en busca del objeto
+                temp = pop(); 
+                //Se guarda el objeto en la pila temporal
+                tempStack -> push(temp); 
+                
+                //Se compara si el objeto es igual al buscado
+                if(temp == o){
+                    
+                    retorno = true; 
+                    break; 	//Se rompe el ciclo
+                    
+                }
+                
+            }
+            
+            //Se recorre la lista temporal para regresar los objetos a la pila original
+            
+            //Variable que almacena el size de la lista temporal
+            int tempStackOriginalSize = tempStack -> getSize(); 
+            
+            for(int i=0; i<tempStackOriginalSize; i++){
+                
+                //Se añade el objeto a la pila
+                push(tempStack -> pop()); 
+                
+            }
+            
+            return retorno; 
+            
+        }
+        
+        //Método para imprimir todos los nodos de la pila
+        void toString(){
+            
+            if(top != NULL){
+                
+                top -> toString(); 
+                
+            }else{
+                
+                cout << "EMPTY"; 
+                
+            }
+            
+        }
+        
+};
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

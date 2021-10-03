@@ -1,0 +1,401 @@
+{% extends '././layout.html' %}
+
+{% block title %}Simple Circular Linked List CPP{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN NODO LISTA SIMPLE CIRCULAR C++:</h1></center><br>
+
+    <pre>
+        <code class="language-cpp">
+# include <iostream>
+#include <string>
+
+
+using namespace std ; 
+
+//--------------------listNode----------------------//
+
+class listNode{
+
+    private: 
+        //Atributos de la clase
+        int object; 
+        listNode* next; 
+
+    public: 
+        //Constructores de la clase
+        listNode(); 
+        listNode(int objeto); 
+        listNode(listNode* siguiente); 
+        listNode(int objeto, listNode* siguiente); 
+        
+        //Métodos de la clase
+        
+        //Método para asignar un nodo siguiente
+        void enlazarSiguiente(listNode* siguiente){
+            
+            next = siguiente; 
+            
+        }; 
+        
+        //Método para asignar un objeto al nodo
+        
+        void setObject(int objeto){
+            
+            object = objeto; 
+            
+        }
+        
+        //Método para obtener la dirección del nodo siguiente
+        listNode* getNextTo(){
+            
+            return next; 
+            
+        }; 
+        
+        //Método par obtener el objeto guardado por un nodo
+        int getObject(){
+            
+            return object; 
+            
+        }
+        
+        //Método para saber si un nodo almacena un objeto dado 
+        bool isEquals(int objeto){
+            
+            if(object == objeto){
+                
+                //Si el objeto almacenado por el nodo es igual al objeto pasado al método se retorna True
+                //El retorno será 1
+                return true; 
+                
+            }else{
+                
+                //Si son diferentes, se retorna False
+                //El retorno será 0
+                return false; 
+                
+            }
+            
+            
+        }
+        
+        //Método para imprimir la información del nodo
+        
+        void toString(){
+        
+            cout << "ListNode: \n";
+            cout << "OBJETO ALMACENADO: ";
+            cout << object; 
+            cout << "\n"; 
+            cout << "\nSIGUIENTE NODO --> \n\n";
+            
+        }
+        
+        
+};
+
+//Implementación de la clase listNode
+
+//Constructor de un nodo vacío
+listNode::listNode(){
+    
+    object = 0; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 		//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo pasando el objeto a almacenar
+listNode::listNode(int objeto){
+    
+    object = objeto; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 			//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo pasando el puntero al siguiente nodo
+listNode::listNode(listNode* siguiente){
+    
+    object= 0;			//Valor por defecto del objeto almacenado en el nodo
+    next = siguiente; 
+    
+}
+
+//Constructor de un nodo completo, paasando el objeto y el puntero al siguiente
+listNode::listNode(int objeto, listNode* siguiente){
+    
+    object = objeto; 
+    next = siguiente; 
+    
+}
+        </code>
+    </pre>
+
+    <br><center><h1>IMPLEMENTACIÓN LISTA SIMPLE C++:</h1></center><br>
+
+    <pre>
+        <code class="language-c++">
+class List{
+
+    private: 
+        //Atrubutos de la clase
+        int size; 
+        listNode* head; 	//Referencia a un nodo que será la cabeza
+        listNode* tail; 	//Referencia a un nodo que será la cola
+        
+    public: 
+        //Constructor de la lista vacía
+        List(){
+            
+            head = NULL; 
+            tail = NULL; 
+            size = 0; 
+            
+        }; 
+        
+        //Métodos de la clase
+        
+        //Método para agregar los enlaces propios de la lista cirular
+        void toCircular(){
+            
+            //El siguiente nodo después de la cola será la cabeza
+            tail -> enlazarSiguiente(head); 
+            
+        }
+        
+        //Método para saber si la lista está vacía
+        bool isEmpty(){
+            
+            if(head == 0){
+                
+                //Si la cabeza es nula, se retorna true
+                return true; 
+                
+            }else{
+                
+                return false; 
+                
+            }
+            
+        }
+        
+        //Método para imprimir la lista
+        
+        void listToString(){
+            
+            listNode* temp; 
+            temp = head; 
+            
+            //Se recorre la lista
+            
+            for(int i=0; i<size; i++){
+                
+                temp -> toString(); 
+                //Se sigue iterando
+                temp = temp -> getNextTo(); 
+                
+            }
+            
+            
+        }
+        
+        //Método para obtener la cabeza
+        listNode* getHeadNode(){
+            
+            return head; 
+            
+        }
+        
+        //Método para obtener la cola
+        listNode* getTailNode(){
+            
+            return tail; 
+            
+        }
+        
+        //Método para obtener el objeto almacenado en la cabeza
+        int getHead(){
+            
+            return head -> getObject(); 
+            
+        }
+        
+        //Mëtodo para obtener el objeto almacenado en la cola
+        int getTail(){
+            
+            return tail -> getObject(); 
+            
+        }
+        
+        //Mëtodo para insertar un objeto por la cola
+        void insertTail(int objeto){
+            
+            if(isEmpty() == true){
+                
+                //Si la lista está vacía, la cabeza y la cola serán el nuevo nodo
+                head = new listNode(objeto); 
+                tail = head; 
+                size++; 
+                
+            }else{
+                
+                //Si la lista no está vacía 
+                tail -> enlazarSiguiente(new listNode(objeto));
+                tail = tail -> getNextTo(); 
+                //Se llama al método para hacer los enlaces correspondientes 
+                this -> toCircular(); 
+                size++; 
+                
+            }
+            
+        }
+        
+        //Método para remover un objeto de la lista
+        void remove(int objeto){
+            
+            listNode* current; 
+            listNode* before; 
+            
+            current = head; 
+            before = NULL; 
+            
+            bool finded = false; 
+            
+            int contadorCiclos = 1; 	//Límite para no pasar de la cola de la lista a la cabeza nuevamente
+            
+            //Se busca el nodo y el anterior
+            while((current != NULL) && !finded){
+                
+                //Se verifica si ya se encontró el objeto
+                finded = (current -> getObject() == objeto); 
+                
+                //Si no se ha encontrado, se sigue iterando entre los nodos
+                if(!finded){
+                    
+                    before = current; 
+                    current = current -> getNextTo(); 
+                    
+                    
+                }
+                
+                //Si ya se recorrieron todos los nodos, se deja de recorrer
+                if(contadorCiclos == this -> size){
+                    
+                    break; 
+                    
+                }
+                
+                //Se sigue aumentando el contador
+                contadorCiclos++; 
+                
+            }
+            
+            if(current != NULL){
+                
+                //Si se encontró el nodo que contiene el objeto
+                
+                if(current == head){
+                    
+                    //Si el nodo que lo contiene es la cabeza, la nueva cabeza será el segundo nodo
+                    head = current -> getNextTo(); 
+                    this -> toCircular(); 
+                    size--; 
+                    
+                }else{
+                    
+                    before -> enlazarSiguiente(current -> getNextTo()); 
+                    size--; 
+                    
+                }
+                
+                delete current; 
+                
+            }
+            
+            
+        }
+        
+        //Método para añadir un elemento a la lista
+        void add(int objeto){
+            
+            //Se llama el método insertTail
+            insertTail(objeto); 
+            
+        }
+        
+        //Método par obtener el tamaño de la lista
+        int getSize(){
+            
+            return size; 
+            
+        }
+        
+        //Método para anular la lista
+        void clear(){
+            
+            head = NULL; 
+            tail = NULL; 
+            size = 0; 
+            
+        }
+        
+        //Método para buscar un objeto dentro de la lista
+        bool search(int object){
+            
+            bool retorno = false; 
+            
+            //Nodo para recorrer la lista
+            listNode* temp; 
+            
+            //Variable para poner un límite a las iteracioens y no pasar de la cola a la cabeza
+            int contadorCiclos = 1; 
+            
+            //Se recorre la lista
+            for(temp = head; temp != NULL; temp = temp -> getNextTo()){
+                
+                if(temp -> getObject() == object){
+                    
+                    retorno = true; 	//Si se encuentra el objeto se retorna true
+                    break; 			//Se rompe el for para dejar de buscar
+                    
+                }
+                
+                //Si ya se recorrió toda la lista, se rompe el ciclo
+                if(contadorCiclos == this -> size){
+                    
+                    break; 
+                    
+                }
+                
+                contadorCiclos++; 
+                
+            }
+            
+            //Si lo encontró retorna 1, si no lo encontró retorna 0
+            if(retorno == 0){
+                
+                return 0; 	//False
+                
+            }else{
+                
+                return 1; 	//True
+                
+            }
+            
+        }
+                
+};
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

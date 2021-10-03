@@ -1,0 +1,268 @@
+{% extends '././layout.html' %}
+
+{% block title %}Queue CPP{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN NODO DE LA COLA (QUEUE) C++:</h1></center><br>
+
+    <pre>
+        <code class="language-cpp">
+# include <iostream>
+#include <string>
+
+
+using namespace std ; 
+
+//--------------------node----------------------//
+
+class node{
+    
+    private: 
+        //Atributos de la clase
+        int object; 
+        node* next; 	//Siguiente nodo en la cola
+        
+    public: 
+        //Constructores de la clase
+        node(); 
+        node(int objeto); 
+        node(int objeto, node* siguiente); 
+        
+        //Método para asignar un nodo siguiente
+        void enlazarSiguiente(node* siguiente){
+            
+            next = siguiente; 
+            
+        }; 
+        
+        //Método para asignar un objeto al nodo
+        
+        void setObject(int objeto){
+            
+            object = objeto; 
+            
+        }
+        
+        //Método para obtener la dirección del nodo siguiente
+        node* getNextTo(){
+            
+            return next; 
+            
+        }; 
+        
+        //Método par obtener el objeto guardado por un nodo
+        int getObject(){
+            
+            return object; 
+            
+        }
+        
+        //Método para imprimir la información de todos los nodos existentes
+        
+        void toString(){
+        
+            cout << "ListNode: \n";
+            cout << "OBJETO ALMACENADO: ";
+            cout << object; 
+            cout << "\n"; 
+            cout << "\nSIGUIENTE NODO --> \n\n";
+            
+            if(getNextTo() != 0 ){
+                
+                //Si el siguiente nodo existe
+                getNextTo() -> toString(); 
+                
+            }else{
+                
+                cout << "NULL\n\n"; 
+                
+            }
+            
+        }
+    
+};
+
+//Implementación de la clase node
+
+//Constructor de un nodo vacío
+node::node(){
+    
+    object = 0; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 		//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo pasando el objeto a almacenar
+node::node(int objeto){
+    
+    object = objeto; 	//Valor por defecto del objeto almacenado en el nodo
+    next = 0; 			//0 es un puntero NULL
+    
+}
+
+//Constructor de un nodo completo, paasando el objeto y el puntero al siguiente
+node::node(int objeto, node* siguiente){
+    
+    object = objeto; 
+    next = siguiente; 
+    
+}
+        </code>
+    </pre>
+
+    <br><center><h1>IMPLEMENTACIÓN COLA (QUEUE) C++:</h1></center><br>
+
+    <pre>
+        <code class="language-c++">
+//--------------------cola----------------------//
+
+class cola{
+    
+    private: 
+        //Atributos de la clase
+        int size; 
+        node* top; 	//Nodo 1 en la cola (Primero en llegar)
+        node* tail;	//Último nodo en la cola
+    
+    public: 
+        //Constructor de la lista vacía
+        cola(){
+            
+            top = NULL; 
+            tail = NULL; 
+            size = 0; 
+            
+        }; 
+        
+        //Métodos de la clase
+        
+        //Método para anular la cola
+        void clear(){
+            
+            top = NULL; 
+            tail = NULL; 
+            size = 0; 
+            
+        }; 
+        
+        //Método par saber si la pila está vacía
+        bool isEmpty(){
+            
+            if(top != NULL){
+                    
+                return false; 	//Si la cabeza no es nula, la cola no es vacía, ser retorna false
+                
+            }else{
+                
+                return true; 
+                
+            }
+            
+        };
+        
+        //Método para extraer un objeto de la cola
+        int extract(){
+            
+            if(isEmpty() == false){
+                
+                //Se retorna el objeto del nodo cabeza y se elmina el nodo
+                int retorno = top -> getObject(); 
+                top = top -> getNextTo(); 	//La nueva cabeza será el siguiente nodo a la anterior cabeza
+                
+                return retorno; 
+                
+            }
+            
+        }; 
+        
+        //Método para insertar un objeto en la cola
+        void insert(int o){
+            
+            if(isEmpty()){
+                
+                //Si la cola está vacía, simplemente se añade como top
+                top = new node(o); 
+                tail = top; 
+                size++; 
+            
+                
+            }else{
+                
+                //Si no está vacía, se añade después de la cola
+                node* temp = new node(o); 
+                
+                tail -> enlazarSiguiente(temp); 
+                tail = temp; 	//El nuevo nodo será la cola
+                
+                size++; 
+                
+            }
+            
+        }; 
+        
+        //Método para obtener el tamaño de la cola
+        int getSize(){
+            
+            return size; 
+            
+        }; 
+        
+        //Método para buscar un objeto en la cola
+        bool search(int o){
+            
+            bool retorno = false; 	//Retorno falso por defecto
+            
+            //Nodo para recorrer la cola
+            node* temp = new node(); 
+            temp = top; 
+            
+            for(int i=0; i<size; i++){
+                
+                if(temp -> getObject() == o){
+                    
+                    //Si el objeto fue encontrado, se rompe el ciclo y se retorna true
+                    retorno = true; 
+                    break; 
+                    
+                }
+                
+                //Si no se encontró se sigue iterando
+                temp = temp -> getNextTo(); 
+                
+            }
+            
+            return retorno; 
+            
+        }; 
+        
+        //Método para imprimir todos los nodos de la pila
+        void toString(){
+            
+            if(top != NULL){
+                
+                top -> toString(); 
+                
+            }else{
+                
+                cout << "EMPTY"; 
+                
+            }
+            
+        }; 
+        
+    
+};
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

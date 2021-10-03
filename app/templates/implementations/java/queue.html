@@ -1,0 +1,337 @@
+{% extends '././layout.html' %}
+
+{% block title %}QUEUE JAVA{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <br><center><h1>IMPLEMENTACIÓN NODO COLA (QUEUE) JAVA:</h1></center><br>
+
+    <pre>
+        <code class="language-java">
+package cola_List;
+
+/**
+*
+* @author pedro
+*/
+public class cola_Node {
+    
+    // ----- Elementos de cada nodo -----
+
+    private Object object;      //Objeto
+    public cola_Node next;       //Referencia (puntero) al siguiente nodo --> Dirección para ir al siguiente
+
+    // ----- Constructores del objeto: -----
+
+    //Totalmente nulo
+
+    public cola_Node() {
+        this.object = null;
+        this.next = null;
+    }
+
+    //Entregando lo que se va a almacenar
+
+    public cola_Node(Object object) {
+        this.object = object;
+        this.next = null; 
+    }
+
+    //Entregando lo que se va a almacenar y a quién se va a enlazar (Siguiente nodo)
+
+    public cola_Node(Object object, cola_Node next) {
+        this.object = object;
+        this.next = next;
+    }
+
+    // ----- Métodos de la lista -----
+    
+    //Método para enlazar a un siguiente nodo
+
+    public void enlazarSiguiente(cola_Node next){
+
+        this.next = next; 
+
+    }
+
+
+    //Mëtodo para obtener el siguiente nodo
+
+    public cola_Node getNextTo(){
+
+        return this.next; 
+
+    }
+
+    //Obtener el objeto almacenado
+
+    public Object getObject() {
+        return object;
+    }
+
+    //Cambiar el objeto almacenado
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+    
+    public String toString(){
+        
+        return "ListNode{" +
+                "object=" + object +
+                ", next=" + next +
+                '}';
+    
+    }   
+    
+}
+        </code>
+    </pre>
+
+    <br><center><h1>IMPLEMENTACIÓN COLA (QUEUE) JAVA:</h1></center><br>
+
+    <pre>
+        <code class="language-java">
+package cola_List;
+
+import cola_List.simple_list.*; 
+import cola_List.double_list.*; 
+
+/**
+    *
+    * @author pedro
+    */
+public class cola implements QueueInterface {
+    
+    // --- ATRIBUTOS DE LA PILA
+    
+    private ListNode head; 
+    private ListNode tail; 
+    private int size; 
+    
+    // --- CONSTRUCTOR DE UNA PILA
+    
+    public cola(){
+    
+        //Se llama al método clear
+        this.clear(); 
+    
+    }
+    
+    // --- MÉTODOS DE LA PILA
+    
+    @Override
+    public void clear(){
+    
+        //Anula la cola y da como resultado una cola vacía con tamaño cero
+        this.head = null; 
+        this.size = 0; 
+    
+    }
+    
+    @Override
+    public boolean isEmpty(){
+        
+        //Se retorna si la cabeza es nula
+        return this.head == null; 
+        
+    }
+    
+    @Override
+    public Object extract(){
+    
+        if(isEmpty()){
+        
+            //Si la cola está vacía se retorna null
+            return null; 
+            
+        }else{
+        
+            //Se retorna el objeto del nodo cabeza y se elmina el nodo
+            Object retorno = this.head.getObject(); 
+            
+            this.head = this.head.getNextTo();  //La nueva cabeza será el nodo siguiente a la anterior cabeza
+            
+            return retorno; 
+        
+        }
+        
+    }
+    
+    @Override
+    public boolean insert(Object object){
+    
+        if(isEmpty()){
+        
+            //Si la cola está vacía simplemente se añade como la nueva cabeza
+            ListNode newNode = new ListNode(); 
+            newNode.setObject(object);
+            
+            this.head = newNode; 
+            this.tail = head;       //La cola será la misma cabeza porque solo hay un elemento
+            
+            this.size++;    //Se aumenta el tamaño
+            
+            return true; 
+        
+        }else{
+        
+            //Si la cola no está vacía, se añade después de la cola
+            ListNode newNode = new ListNode(); 
+            newNode.setObject(object); 
+
+            this.tail.enlazarSiguiente(newNode);    
+            this.tail = newNode;    //El valor cola es tomado por el nuevo nodo
+            
+            this.size++;    //Se aumenta el tamaño
+            
+            return true; 
+            
+        }
+        
+    }
+    
+    @Override
+    public int size(){
+    
+        //Se retorna el atributo tamaño
+        return this.size; 
+        
+    }
+    
+    @Override
+    public boolean search(Object object){
+    
+        boolean retorno = false; 
+        
+        //Nodo para recorrer la cola en busca del objeto buscado
+        ListNode temp = new ListNode(); 
+        temp = this.head; 
+        
+        for(int i=0; i< this.size; i++){
+        
+            if(temp.getObject().toString().equals(object.toString())){
+            
+                //Si el objeto fue encontrado el retorno es true y se rompe el ciclo
+                
+                retorno =  true; 
+                break; 
+                
+            }
+            
+            temp = temp.next;   //Si no fue encontrado, se sigue iterando
+        
+        }
+        return retorno; 
+        
+    }
+    
+    @Override
+    public void sort(){
+    
+        //Se crea una lista simplemente enlazada para almacenar los elementos y organizarlos
+        List tempList = new List(); 
+        
+        //Nodo para iterar la cola
+        ListNode temp = new ListNode(); 
+        temp = this.head; 
+        
+        for(int i=0; i< this.size; i++){
+        
+            //Se agregan los elementos a la lista doblemente enlazada temporal
+            tempList.add(temp.getObject()); 
+            
+            temp = temp.next;   //Se sigue iterando
+            
+        }
+        
+        //Se ordena la lista simplemente enlazada
+        
+        tempList = tempList.sortList(); 
+        
+        //Se vacía la cola y se agregan los elementos ordenados de la lista simplemente enlazada
+        
+        this.clear(); 
+        
+        //Nodo para iterar la lista simplemente enlazada
+        ListNode tempNode = new ListNode(); 
+        tempNode = tempList.head; 
+        
+        for(int j=0; j< tempList.getSize(); j++){
+        
+            this.insert(tempNode.getObject());
+            
+            tempNode = tempNode.next;  //Se sigue iterando hacia atrás
+            
+        }
+    
+    }
+    
+    @Override
+    public void reverse(){
+    
+        //Se crea una lista doblemente enlazadada para almacenar los elementos de la cola
+        list tempList = new list(); 
+        
+        //Nodo para iterar la cola
+        ListNode temp = new ListNode(); 
+        temp = this.head; 
+        
+        for(int i=0; i< this.size; i++){
+        
+            //Se agregan los elementos a la lista doblemente enlazada temporal
+            tempList.add(temp.getObject()); 
+            
+            temp = temp.next;   //Se sigue iterando
+            
+        }
+        
+        //Se vacía la cola para ir agregando los elementos desde la cola de la lista doblemente enlazada
+        
+        this.clear(); 
+        
+        //Nodo para iterar la lista doblemente enlazada
+        listNode doubleTemp = new listNode(); 
+        doubleTemp = tempList.getTail(); 
+        
+        for(int j=0; j< tempList.getZise(); j++){
+        
+            this.insert(doubleTemp.getObject());
+            
+            doubleTemp = doubleTemp.getBeforeTo();  //Se sigue iterando hacia atrás
+            
+        }
+    
+    
+    }
+    
+    @Override
+    public String toString(){
+    
+        if(this.head != null){
+            
+            return this.head.toString(); 
+            
+        }else{
+            
+            return "null"; 
+            
+        }
+        
+    }
+    
+    
+}
+        </code>
+    </pre>
+    
+</div>
+
+{% endblock %}

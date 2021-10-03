@@ -21,7 +21,7 @@
         <div class="card" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/simple_list.jpg')}}">
             <div class="card-body">
                 <h4 class="card-title">LISTA SIMPLEMENTE ENLAZADA</h4>
-                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+                <p class="card-text"></p><a href="{{ url_for('concrete_theory', concrete_structure = 'simple_linked_list' )}}" target="_blank"><button class="btn btn-primary" type="button">VER TEORÍA</button></a></div>
         </div>
         <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/simple_circular_list.jpg')}}">
             <div class="card-body">

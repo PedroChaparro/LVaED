@@ -1,0 +1,22 @@
+{% extends '././layout.html' %}
+
+{% block title %}Theory: Simple Linked List{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <h1>LISTA SIMPLEMENTE ENLAZADA: </h1><hr><br>
+
+    <h2>DEFINICIÓN: </h2>
+
+    <p  class="lead text-justify">Una lista simplemente enlazada consiste en una sucesión de nodos en la que cada uno apunta únicamente al siguiente en la lista.<b> A excepción del último nodo en la lista, que simplemente apuntará a null.</b>Con la siguiente imágen se puede apreciar de mejor manera la definición: </p>
+    
+</div>
+
+{% endblock %}

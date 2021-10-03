@@ -40,6 +40,11 @@ def concrete_implementation(concrete_implementation):
     
     return render_template(get_implementation_route(implementation, lang))
 
+#Ruta hacia una página de teoría específica
+@app.route('/theory/<concrete_structure>')
+def concrete_theory(concrete_structure):
+    return render_template(get_theory_page(concrete_structure))
+
 #Ruta hacia la página de transformaciones código-digrama
 @app.route('/code_to_diagram',  methods = ['GET', 'POST'])
 def code_to_diagram():
@@ -136,7 +141,12 @@ def load_implementations():
 
     app.config['implementations']['cpp'] = {
         #/templates/implementations/c++/
-        'simple_linked_list':'implementations/c++/listaSimple.html'
+        'simple_linked_list':'implementations/c++/listaSimple.html',
+        'simple_circular_linked_list':'implementations/c++/listaSimpleCircular.html',
+        'double_linked_list':'implementations/c++/listaDoble.html',
+        'double_circular_linked_list':'implementations/c++/listaDobleCircular.html',
+        'queue':'implementations/c++/queue.html',
+        'stack':'implementations/c++/stack.html'
     }
 
     app.config['implementations']['python'] = {
@@ -151,6 +161,9 @@ def load_implementations():
 
     app.config['implementations']['java'] = {
         #/templates/implementations/java/
+        'simple_linked_list':'implementations/java/listaSimple.html',
+        'queue':'implementations/java/queue.html',
+        'stack':'implementations/java/stack.html'
     }
 
 #------------------------------------------------------------------------------------
@@ -161,8 +174,32 @@ def get_implementation_route(concrete_implementation, lang):
 
     return app.config['implementations'][lang][concrete_implementation]
 
+#------------------------------------------------------------------------------------
+# FUNCIÓN PARA CARGAR LAS RUTAS DE LAS PÁGINAS DE TEORÍA CUANDO SE CARGUE LA PÁGINA
+#------------------------------------------------------------------------------------
+def load_theory_pages():
+    
+    app.config['theory_pages'] = {
+        'simple_linked_list':'theory_pages/listaSimple.html',
+        #'simple_circular_linked_list':'',
+        #'double_linked_list':'',
+        #'double_circular_linked_list':'i',
+        #'queue':'',
+        #'stack':''
+    }
+
+#------------------------------------------------------------------------------------
+# Función para obtener la ruta de una páginad de teoría específica
+#------------------------------------------------------------------------------------
+def get_theory_page(datastructure):
+
+    return app.config['theory_pages'][datastructure]
+
 #Se llama al método para que se carguen las implementaciones
 load_implementations()
+
+#Se llama al método para que carguen las páginas de teoría
+load_theory_pages()
 
 if __name__ == "__main__": 
     app.run(debug=True)
