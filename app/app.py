@@ -1,7 +1,7 @@
 from re import sub
 from flask import Flask, render_template, redirect, request     #Flask import
 import ast                                                      #Abstract Syntax Tree import
-import json                                                     #Import Json for send info to JS
+import json
 
 app = Flask(__name__)
 
@@ -30,41 +30,15 @@ def transformaciones():
 def diagram_to_code():
     return render_template('diagram_to_code.html')
 
-# --------------------------------------------------------------------------------
-# RUTAS HACIA LAS IMPLEMENTACIONES PYTHON
-# --------------------------------------------------------------------------------
+#Ruta hacia una implementación específica
+@app.route('/implementaciones/<concrete_implementation>')
+def concrete_implementation(concrete_implementation):
 
-#Ruta hacia la página de la implementación de la lista simplemente enlazada python
-@app.route('/python_listaSimple')
-def python_listaSimple():
-    return render_template('/implementations/python/listaSimple.html')
-
-@app.route('/python_listaSimpleCircular')
-def python_listaSimpleCircular():
-    return render_template('/implementations/python/listaSimpleCircular.html')
-
-@app.route('/python_listaDoble')
-def python_listaDoble():
-    return render_template('/implementations/python/listaDoble.html')
-
-@app.route('/python_listaDobleCircular')
-def python_listaDobleCircular():
-    return render_template('/implementations/python/listaDobleCircular.html')
-
-@app.route('/python_stack')
-def python_stack():
-    return render_template('/implementations/python/stack.html')
-
-@app.route('/python_queue')
-def python_queue():
-    return render_template('/implementations/python/queue.html')
-
-# --------------------------------------------------------------------------------
-# RUTAS HACIA LAS IMPLEMENTACIONES C++
-# --------------------------------------------------------------------------------
-@app.route('/cpp_listaSimple')
-def cpp_listaSimple():
-    return render_template('/implementations/c++/listaSimple.html')
+    implementation_lang = concrete_implementation.split(' ')
+    implementation = implementation_lang[0]
+    lang = implementation_lang[1]
+    
+    return render_template(get_implementation_route(implementation, lang))
 
 #Ruta hacia la página de transformaciones código-digrama
 @app.route('/code_to_diagram',  methods = ['GET', 'POST'])
@@ -151,7 +125,44 @@ def extractGraphInfo(code_tree):
             temp_methods_args_dict.clear()
     
     return output_dictionary
-    
+
+#------------------------------------------------------------------------------------
+# FUNCIÓN PARA CARGAR LAS RUTAS DE LAS IMPLEMENTACIONES EN EL ARCHIVO DE CONFIGURACIÓN
+#------------------------------------------------------------------------------------
+
+def load_implementations():
+    #Diccionario que guardará las diferentes implementaciones
+    app.config['implementations'] = {}
+
+    app.config['implementations']['cpp'] = {
+        #/templates/implementations/c++/
+        'simple_linked_list':'implementations/c++/listaSimple.html'
+    }
+
+    app.config['implementations']['python'] = {
+        #/templates/implementations/python/
+        'simple_linked_list':'implementations/python/listaSimple.html',
+        'simple_circular_linked_list':'implementations/python/listaSimpleCircular.html',
+        'double_linked_list':'implementations/python/listaDoble.html',
+        'double_circular_linked_list':'implementations/python/listaDobleCircular.html',
+        'queue':'implementations/python/queue.html',
+        'stack':'implementations/python/stack.html'
+    }
+
+    app.config['implementations']['java'] = {
+        #/templates/implementations/java/
+    }
+
+#------------------------------------------------------------------------------------
+# Función para obtener la ruta de una implementación específica 
+#------------------------------------------------------------------------------------
+
+def get_implementation_route(concrete_implementation, lang):
+
+    return app.config['implementations'][lang][concrete_implementation]
+
+#Se llama al método para que se carguen las implementaciones
+load_implementations()
 
 if __name__ == "__main__": 
     app.run(debug=True)
