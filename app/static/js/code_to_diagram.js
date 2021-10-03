@@ -1,5 +1,3 @@
-// ------------- FUNCIÓN PARA GRAFICAR UNA CLASE CON EL VISJS -------------
-
 //Graph nodes array
 var nodos = new vis.DataSet([
 
@@ -65,6 +63,7 @@ function addClass(className){
 
 }
 
+//Function to add class´s attributes to the Graph
 function addAttribute(attributeName){
     
     node = { id:(IDattribute+1), label:attributeName, color:{background:"#87F8FF", border:"#00F0FF"}};  //Node creation
@@ -81,6 +80,7 @@ function addAttribute(attributeName){
 
 }
 
+//Function to add class´s methods to the graph
 function addMethod(methodName){
 
     node = {id:(IDmethod+1), label:methodName, color:{background:"#C5FFB4", border:"#39FF00"}}  //Node creation
@@ -98,6 +98,7 @@ function addMethod(methodName){
     
 }
 
+//Function to add method´s args to the graph
 function addArg(argsArray){
     
     for(index in argsArray){

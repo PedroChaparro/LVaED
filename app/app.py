@@ -85,6 +85,7 @@ def code_to_diagram():
 
     return render_template('code_to_diagram.html', PythonDic = outputDictionary)
 
+
 #-------- MÉTODO PARA ANALIZAR EL AST DE PYTHON ---------
 def extractGraphInfo(code_tree): 
 
