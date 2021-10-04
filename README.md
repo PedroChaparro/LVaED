@@ -30,7 +30,7 @@ LVeED is a WebApplication designed for the people who want learn about data stru
 ### IMPLEMENTATION EXAMPLE
 
 <table><tr><td>
-    <img src="https://i.ibb.co/RS8NjbK/Implementation-example.png" />
+    <img src="https://i.ibb.co/vvnXKdv/Implementation-example.png" />
 </td></tr></table>
 
 ### TRANSFORMATIONS PAGE
