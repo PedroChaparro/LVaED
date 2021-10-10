@@ -1,0 +1,180 @@
+{% extends '././layout.html' %}
+
+{% block title %}Theory: Queue{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <h1>COLA (QUEUE): </h1><hr><br>
+
+    <h2>DEFINICIÓN: </h2>
+
+    <p  class="lead text-justify">Una cola es una estructura de datos cuyo funcionamiento se basa en el <b>FIFO</b>, es decir, <b>First In, First Out</b>, lo cual quiere decir que el primer elemento en ingresar a la estructura es el primero que debería salir cuando se solicite un dato, como se puede apreciar en la siguiente imágen: </p>
+
+    <br>
+    <img src="{{url_for('static', filename='img/theory_queue.png')}}" alt="queue" class="img-fluid mx-auto d-block"><br>
+
+    <p class="lead text-justify">En la imágen se puede observar el comportamiento <b>FIFO</b>, ya que al llamar a la función <b>extract()</b>, se retorna el elemento 0, es decir, el primero que ingresó a la cola, y luego de retornar el elemento, se elimina de la cola, convirtiéndose el elemento 1 en el nuevo <b>top</b> de la cola.</p>
+
+    <p class="lead text-justify">Para comprender mejor esta estructura, se podría hacer una analogía con un banco, donde la primer persona que llega a la fila es la primera en ser atendida, y las personas que lleguen después, se deben formar detrás de la primer persona, esperando su turno: </p>
+
+    <img src="{{url_for('static', filename='img/theory_queue_2.png')}}" alt="queue example" class="img-fluid mx-auto d-block"><br>
+
+    <p class="lead text-justify">Si quiere descargar la implementación de la cola (queue) en TypeScript, haga click en el siguiente botón: </p>
+    <a href="{{url_for('static', filename='downloads/queue.ts')}}" download="queue.ts"><button class="btn btn-primary mb-3" style="color: white;">DESCARGAR .ts</button></a>
+
+    <!-- ---------------------- -->
+    <!--MÉTODOS DEL NODO-->
+    <!-- ---------------------- -->
+    
+    <h2>MÉTODOS BÁSICOS DEL NODO: </h2>
+
+    <p class="lead text-justify">Al igual que todas las estructuras, la cola también se compone de nodos, los cuales, tienen sus propios métodos: </p>
+
+    <ol>
+        <!--MÉTODO 1-->
+        <li class="lead text-justify">Método para saber si el nodo contiene un objeto: 
+        <pre><code class="language-typescript">
+//Método para saber si un nodo almacena un objeto
+isEquals(object:any):Boolean{
+    if(this.data === object){   //Es importante verificar también el tipo del dato
+        return true; 
+    }else{
+        return false; 
+    }
+}
+        </code></pre>
+        </li>
+
+        <!--MÉTODO 2-->
+        <li class="lead text-justify">Método para imprimir todos los nodos, "en cadena": 
+        <pre><code class="language-typescript">
+toString():void{
+    if(this.next_node != null){
+        console.log("Queue node: " + " Data: " + this.data + " NextNode -> ");
+        this.next_node.toString(); 
+    }else{
+        console.log("Queue node: " + " Data: " + this.data + " NextNode: NULL");
+    }
+}          
+        </code></pre>
+        </li>
+
+    </ol>
+
+    <p class="lead text-justify">Además de los anteriores métodos, claramente los nodos deben tener su método constructor, sus getters y sus setters.</p><br>
+
+    <!-- ---------------------- -->
+    <!--MÉTODOS DE LA LISTA-->
+    <!-- ---------------------- -->
+    <h2>MÉTODOS BÁSICOS DE LA COLA (QUEUE): </h2><br>
+
+    <ol>
+
+        <li class="lead text-justify">Método para insertar un nuevo dato a la cola: 
+
+        <!--MÉTODO 1-->
+        <pre><code class="language-typescript">
+insert(object:any):void{
+
+    let new_node = new queue_node(object); 
+
+    //Si la cola está vacía, añade el nuevo objeto y lo asigna como el top y tail (ya que no hay más nodos)
+    if(this.isEmpty()){
+        this.top = new_node; 
+        this.tail = this.top; 
+    }else{
+        //Si ya hay elementos en la cola, pone el nuevo nodo después del último elemento
+        this.tail!.set_next_node = new_node; 
+        this.tail = new_node;   //El último nodo de la cola ahora será el nodo que se acaba de añadir
+    }
+
+    this.size++;    //Al finalizar, se aumenta el tamaño de la cola
+
+}
+        </code></pre>
+        </li>
+
+        <!--MÉTODO 2-->
+        <li class="lead text-justify">Método para ver el elemento del top de la cola, sin extraerlo: 
+        <pre><code class="language-typescript">
+peek():any{
+    //Si la cola está vacía, retorna null
+    if(this.isEmpty()){
+        return null; 
+    }else{
+        //Si no está vacía, retorna el objeto del top
+        return this.top!.get_data; 
+    }
+}
+        </code></pre>
+        </li>
+
+        <!--MÉTODO 3-->
+        <li class="lead text-justify">Método para extraer un elemento de la cola: 
+            <pre><code class="language-typescript">
+extract():any{
+    //Si la cola está vacía, retorna null
+    if(this.isEmpty()){
+        return null; 
+    }else{
+        //Si no está vacía, retorna el objeto de top, y asigna top al siguiente nodo
+        let return_objetct:any = this.top!.get_data;   
+        this.top = this.top!.get_next_node; 
+        return return_objetct; 
+    }
+}
+            </code></pre>
+        </li>
+
+        <!--MÉTODO 4-->
+        <li class="lead text-justify">Método para buscar un elemento en la cola: 
+            <pre><code class="language-typescript">
+search(object:any):boolean{
+    //Si la cola está vacía, retorna falso
+    if(this.isEmpty()){
+        return false; 
+    }else{
+        //Si no está facía, itera entre los nodos hasta encontrar el objeto
+        let encontrado = false; 
+
+        let temp_node:queue_node|null = this.top;    //Nodo temporal para iterar la cola
+
+        for(var i=0; i< this.size; i++){
+
+            if(temp_node!.get_data === object){
+                encontrado = true;  //Si encuentra el objeto cambia el retorno a true
+                break;              //Rompe el ciclo
+            }
+
+            //Si no ha encontrado el objeto, sigue iterando entre los nodos
+            temp_node = temp_node!.get_next_node; 
+        }
+
+        //Finalmente retorna la variable "encontrado", si no se encontró seguirá siendo false
+        return encontrado;  
+
+    }
+}
+            </code></pre>
+        </li>
+
+        <!--MÉTODO 5-->
+        <li class="lead text-justify">Método para imprimir todos los nodos de la cola (hace uso del método toSting() del nodo de la cola): 
+            <pre><code class="language-typescript">
+queue_toString():void{
+    this.top!.toString();    //Se llama al método toSting del nodo top
+}
+            </code></pre>
+        </li>
+    </ol>
+
+</div>
+
+{% endblock %}

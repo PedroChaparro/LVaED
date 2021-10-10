@@ -15,9 +15,13 @@
 
     <h2>DEFINICIÓN: </h2>
 
-    <p  class="lead text-justify">Una lista simplemente enlazada consiste en una sucesión de nodos en la que cada uno apunta únicamente al siguiente en la lista,<b> a excepción del último nodo en la lista, que simplemente apuntará a null.</b>Con la siguiente imágen se puede apreciar de mejor manera la definición: </p>
+    <p  class="lead text-justify">Una lista simplemente enlazada consiste en una sucesión de nodos en la que cada uno apunta únicamente al siguiente en la lista,<b> a excepción del último nodo en la lista, que simplemente apuntará a null.</b> Con la siguiente imágen se puede apreciar de mejor manera la definición: </p>
 
     <br>
+    <img src="{{url_for('static', filename='img/theory_simple_linked_list.jpg')}}" alt="Lista simplemente enlazada" class="img-fluid mx-auto d-block"><br>
+
+    <p class="lead text-justify">Si quiere descargar la implementación de la lista simplemente enlzadada en TypeScript, haga click en el siguiente botón: </p>
+    <a href="{{url_for('static', filename='downloads/SimpleLinkedList.ts')}}" download="SimpleLinkedList"><button class="btn btn-primary mb-3" style="color: white;">DESCARGAR .ts</button></a>
 
     <!-- ---------------------- -->
     <!--MÉTODOS DEL NODO-->
@@ -246,7 +250,6 @@ insertAt(object:any, index:number){
         <li class="lead text-justify"><b>Sublist(index_start, index_end):</b> Este método permitiría generar una sublista simplemente enlazada, desde el índice de inicio hasta el índice de final. </li>
     </ul>
 
-    
 </div>
 
 {% endblock %}

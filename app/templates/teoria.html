@@ -43,12 +43,12 @@
         <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/pila.jpg')}}">
             <div class="card-body">
                 <h4 class="card-title">PILA</h4>
-                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+                <p class="card-text"></p><a href="{{ url_for('concrete_theory', concrete_structure = 'stack' )}}" target="_blank"><button class="btn btn-primary" type="button">VER TEORÍA</button></a></div>
         </div>
         <div class="card border rounded-0" id="id-card"><img class="card-img-top w-100 d-block" id="dataStructure-img" src="{{url_for('static', filename='img/cola.jpg')}}">
             <div class="card-body">
                 <h4 class="card-title">COLA</h4>
-                <p class="card-text"></p><button class="btn btn-primary" type="button">VER TEORÍA</button></div>
+                <p class="card-text"></p><a href="{{ url_for('concrete_theory', concrete_structure = 'queue' )}}" target="_blank"><button class="btn btn-primary" type="button">VER TEORÍA</button></a></div>
         </div>
     </div>
     <div class="card-group shadow">

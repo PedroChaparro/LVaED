@@ -1,0 +1,225 @@
+{% extends '././layout.html' %}
+
+{% block title %}Theory: Stack{% endblock %}
+
+{% block body %}
+
+<!-- IMPORT PRISM LIBRARY FOR THE HIGHLIGHT -->
+<script src="{{url_for('static', filename='js/prism.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/prism.css')}}">
+<!-- -->
+
+<div class="container">
+
+    <h1>PILA (STACK): </h1><hr><br>
+
+    <h2>DEFINICIÓN: </h2>
+
+    <p  class="lead text-justify">Una pila es una estructura basada en el <b>LIFO</b>, es decir, <b>Last In, First Out</b>, lo cual quiere decir que el último elemento en entrar a la pila, es el primero en salir cuando se solicite un elemento. Esta estructura puede ser un poco similar a la cola (en cuando a la representación gráfica), pero el funcionamiento es, de hecho, el contrario. En la siguiente imágen se puede apreciar el funcionamiento de la estructura: </p>
+
+    <br>
+    <img src="{{url_for('static', filename='img/theory_stack.png')}}" alt="stack" class="img-fluid mx-auto d-block"><br>
+
+    <p class="lead text-justify">Otra diferencia entre la cola (queue) y la pila (stack) está en que la cola "crece hacia abajo", es decir, el elemento Top era inmutable (hasta que se extraía), mientras que en la pila pasa lo contrario, cada que se inserta un dato, el nuevo dato se convierte en el Top de la pila. En resúmen, al insertar datos, estos se <b>aplian</b>, o dicho de otro modo, se acumulan uno sobre el otro.</p>
+
+    <p class="lead text-justify">Si quiere descargar la implementación de la pila (stack) en TypeScript, haga click en el siguiente botón: </p>
+    <a href="{{url_for('static', filename='downloads/stack.ts')}}" download="stack.ts"><button class="btn btn-primary mb-3" style="color: white;">DESCARGAR .ts</button></a>
+
+    <!-- ---------------------- -->
+    <!--MÉTODOS DEL NODO-->
+    <!-- ---------------------- -->
+    
+    <h2>MÉTODOS BÁSICOS DEL NODO: </h2>
+
+    <p class="lead text-justify">Al igual que todas las estructuras, la pila también se compone de nodos, los cuales, tienen sus propios métodos: </p>
+
+    <ol>
+        <!--MÉTODO 1-->
+        <li class="lead text-justify">Método para saber si el nodo contiene un objeto: 
+        <pre><code class="language-typescript">
+isEquals(object:any):Boolean{
+    if(this.data === object){   //Es importante verificar también el tipo del dato
+        return true; 
+    }else{
+        return false; 
+    }
+}
+        </code></pre>
+        </li>
+
+        <!--MÉTODO 2-->
+        <li class="lead text-justify">Método para imprimir todos los nodos, "en cadena": 
+        <pre><code class="language-typescript">
+toString():void{
+    if(this.next_node != null){
+        console.log("Stack node: " + " Data: " + this.data + " NextNode -> ");
+        this.next_node.toString(); 
+    }else{
+        console.log("Stack node: " + " Data: " + this.data + " NextNode: NULL");
+    }
+}
+        </code></pre>
+        </li>
+
+    </ol>
+
+    <p class="lead text-justify">Además de los anteriores métodos, claramente los nodos deben tener su método constructor, sus getters y sus setters.</p><br>
+
+    <!-- ---------------------- -->
+    <!--MÉTODOS DE LA LISTA-->
+    <!-- ---------------------- -->
+    <h2>MÉTODOS BÁSICOS DE LA PILA (STACK): </h2><br>
+
+    <ol>
+
+        <li class="lead text-justify">Método para insertar un nuevo dato a la cola: 
+        <!--MÉTODO 1-->
+        <pre><code class="language-typescript">
+push(object:any){
+
+    let new_top = new stack_node(object);   //Se crea el nuevo nodo
+
+    if(this.isEmpty()){
+        //Si la pila está vacía, crea el nodo y lo asigna como el top de la pila
+        this.top = new_top; 
+    }else{
+        //Si ya hay un top en la pila
+
+        //El top de la pila será el nuevo nodo, y apuntará al anterior top
+        new_top.set_next_node = this.top; 
+        this.top = new_top; 
+    }
+
+    this.size++;    //Al terminar, aumenta el size de la pila
+
+}
+        </code></pre>
+        </li>
+
+        <!--MÉTODO 2-->
+        <li class="lead text-justify">Método para ver el elemento del top de la pila, sin extraerlo: 
+        <pre><code class="language-typescript">
+peek():any{
+    if(this.isEmpty()){
+
+        //Si la pila está vacía, retorna null   
+        return null; 
+
+    }else{
+
+        //Si la pila no está vacía, retorna el objeto almacenado en top
+        return this.top!.get_data; 
+
+    }
+}
+        </code></pre>
+        </li>
+
+        <!--MÉTODO 3-->
+        <li class="lead text-justify">Método para extraer un elemento de la pila: 
+            <pre><code class="language-typescript">
+pop():any{
+
+    //Primero verifica que la pila no esté vacía
+    if(this.isEmpty()){
+        //Si está vacía, retorna null
+        return null; 
+    }else{
+        //El retorno será el objeto que guarda el nodo "top"
+        let retorno:any = this.top!.get_data; 
+
+        //El top de la pila ahora será el siguiente nodo al nodo que se va a eliminar
+        this.top = this.top!.get_next_node; 
+
+        return retorno; 
+    }
+
+}
+            </code></pre>
+        </li>
+
+        <!--MÉTODO 4-->
+        <li class="lead text-justify">Método para buscar un elemento en la pila: 
+            <pre><code class="language-typescript">
+search(object:any):boolean{
+
+    if(this.isEmpty()){
+        //Si la pila está vacía, retorna falso
+        return false; 
+    }else{
+
+        let retorno = false;    //El retorno empieza siendo falso
+
+        //Si no está vacía, itera entre los nodos de la pila, para buscar el elemento
+        let current_node:stack_node|null = this.top; 
+
+        //Mientras que el siguiente nodo no sea nulo, sigue iterando
+        while(current_node != null){
+
+            //Si encontró el objeto, rompe el ciclo y cambia el retorno a true
+            if(current_node!.get_data === object){
+                retorno = true; 
+                break; 
+            }
+
+            //Si no ha encontrado el objeto, sigue iterando
+            current_node = current_node!.get_next_node; 
+
+        }
+
+        return retorno; 
+
+    }
+
+}
+            </code></pre>
+        </li>
+
+        <!--MÉTODO 5-->
+        <li class="lead text-justify">Método para imprimir todos los nodos de la pila (hace uso del método toSting() del nodo de la pila): 
+            <pre><code class="language-typescript">
+toString():void{
+    if(this.isEmpty()){
+        //Si la pila está vacía, escribe 'empty'
+        console.log("EMPTY"); 
+    }else{
+        this.top!.toString(); 
+    }
+}
+            </code></pre>
+        </li>
+
+        <!--MÉTODO 6-->
+        <li class="lead text-justify">Método para invertir los elementos de la pila:  
+            <pre><code class="language-typescript">
+reverse():stack|null{
+
+    if(this.isEmpty()){
+        //Si la pila está vacía, retorna null
+        return null; 
+    }else{
+        //Se crea una pila a retornar
+        let reversed_stack:stack = new stack(); 
+
+        let current_node:stack_node|null = this.top; 
+
+        while(current_node != null){
+            //Se agrega a la pila "reversed_stack" la información de cada nodo de la pila, empezando por el top
+            reversed_stack.push(current_node.get_data); 
+
+            current_node = current_node!.get_next_node; 
+        }
+
+        //Lo anterior da como resultado la misma pila, pero invertida, ya que el primer elemento en ser insertado, va quedando en el fondo
+        return reversed_stack; 
+
+    }
+
+}
+            </code></pre>
+        </li>
+    </ol>
+
+</div>
+
+{% endblock %}

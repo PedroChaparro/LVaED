@@ -184,8 +184,8 @@ def load_theory_pages():
         #'simple_circular_linked_list':'',
         #'double_linked_list':'',
         #'double_circular_linked_list':'i',
-        #'queue':'',
-        #'stack':''
+        'queue':'theory_pages/queue.html',
+        'stack':'theory_pages/stack.html'
     }
 
 #------------------------------------------------------------------------------------
